@@ -1,0 +1,46 @@
+* {
+    font-family: Merriweather;
+}
+
+.content {
+    max-width: 600px;
+    width: 80vw;
+    line-height: 1.7;
+    margin: 3rem auto;
+}
+
+h1, h2 {
+font-weight: 400;
+}
+
+nav {
+    ul {
+        float: right;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        li { 
+            display: inline-block;
+        }
+    }
+    width: 100%;
+}
+
+.entry {
+    font-size: 0.8rem;
+    .entry__title {
+        font-size: 1rem;
+        font-weight: bold;
+    }
+    .entry__description {
+        font-style: italic;
+    }
+}
+
+figure {
+    figcaption {
+        font-size: 0.8rem;
+        font-style: italic;
+        text-align: center;
+    }
+}

@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Where are the vaccine deserts?",
+    "description": "I did research, data collection, analysis and graphics for an NBC News story tracking where Americans could expect to find pharmacies that would carry the Covid-19 vaccine.",
+    "image": "",
+    "link": "https://www.nbcnews.com/health/article/map-covid-19-vaccine-united-states-n1250791"
+  },
+  {
+    "title": "Cover Story",
+    "description": "As part of a challenge, I used a database of book titles from Amazon and a part-of-speech tagger to construct grammatically correct sentences using only book titles. Earned an honorable mention from Randall Munroe, creator of XKCD.",
+    "image": "",
+    "link": "https://covers.naitian.org/"
+  },
+  {
+      "title": "If you start playing...",
+      "description": "A different kind of New Year's countdown, IYSP takes inspiration from the internet memes about \"starting the year off right.\"",
+      "image": "",
+      "link": "https://naitian.holiday/iysp/?preset=umich"
+  }
+]
