@@ -1,0 +1,137 @@
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/styles/a11y-dark.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js"></script>
+        <link href="/css/base.css" rel="stylesheet">
+
+        <title>Getting Cozy with Jekyll</title>
+    <link href="/css/blog.css" rel="stylesheet"></head>
+    <body>
+        <div class="content">
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/blog">Blog</a></li>
+            </ul> 
+        </nav>
+        
+<article>
+    <h1 class="title">Getting Cozy with Jekyll</h1>
+    <section><h2>The Problem</h2><p>I've been having lots of fun with this blog, and Jekyll makes it easy to write
+posts. I love the simplicity involved in creating a post and publishing it.
+However, there were some irritations involved when starting to write a post: I
+had to write the front matter manually every single time. As it turns out, I was
+basically copying and pasting the front matter and changing values every time.
+There must be a better way!</p><p>There isn't an easy fix for this. Since the front matter is specific to every
+post, there's nothing I can specify in the Jekyll configuration. So the question
+was: what do?</p></section>
+<section><h2>The Solution</h2><p>After a little bit of research into preexisting solutions, I decided it would be
+easiest to just write my own little script. I have a special set up, where, in
+addition to just blog posts, I also have art and project posts that I want to
+semi-automate the generation of also.</p><p>I ended up writing a Python script that basically walks me through the front
+matter requirements for each post. The interface looks a little bit like this:</p><pre><code class="hljs language-sql_more">blog > title: Getting Cozy <span class="hljs-keyword">with</span> Jekykll
+blog > author(Naitian Zhou):
+blog > cover(<span class="hljs-keyword">required</span>): TODO
+blog > <span class="hljs-keyword">desc</span>(A blog post): A <span class="hljs-keyword">quick</span> guide <span class="hljs-keyword">to</span> easliy generating <span class="hljs-keyword">new</span> Jekyll psts <span class="hljs-keyword">with</span> Python <span class="hljs-keyword">and</span> Mustache
+Would you <span class="hljs-keyword">like</span> <span class="hljs-keyword">to</span> <span class="hljs-keyword">add</span> a tag? (y/N)y
+blog > tag > <span class="hljs-keyword">name</span>: Python
+</code></pre><p>This generates a file <code>_drafts/getting-cozy-with-jekyll.md</code> with the following
+content:</p><pre><code class="hljs language-yaml"><span class="hljs-meta">---</span>
+<span class="hljs-attr">title:</span> <span class="hljs-string">Getting</span> <span class="hljs-string">Cozy</span> <span class="hljs-string">with</span> <span class="hljs-string">Jekyll</span>
+<span class="hljs-attr">author:</span> <span class="hljs-string">Naitian</span> <span class="hljs-string">Zhou</span>
+<span class="hljs-attr">cover:</span> <span class="hljs-string">/assets/TODO</span>
+<span class="hljs-attr">description:</span> <span class="hljs-string">A</span> <span class="hljs-string">quick</span> <span class="hljs-string">guide</span> <span class="hljs-string">to</span> <span class="hljs-string">easily</span> <span class="hljs-string">generating</span> <span class="hljs-string">new</span> <span class="hljs-string">Jekyll</span> <span class="hljs-string">posts</span> <span class="hljs-string">with</span> <span class="hljs-string">Python</span> <span class="hljs-string">and</span> <span class="hljs-string">Mustache</span>
+<span class="hljs-attr">tags:</span>
+    <span class="hljs-bullet">-</span> <span class="hljs-string">Python</span>
+<span class="hljs-meta">---
+</span></code></pre><p>A couple of interesting notes: I implemented very basic default values, which
+allowed me to leave the <code>Author: </code> field blank, and included the ability to add
+lists to the front matter.</p><p>In fact, I even made it so that I could specify more JSON schemas for posts and
+the script would automatically be able to handle those as well. Here's the
+relevant directory structure:</p><pre><code class="hljs language-haml"> -<span class="ruby"> /<span class="hljs-regexp">/other Jekyll files
+</span></span> -<span class="ruby"><span class="hljs-regexp"> _templates/</span>
+</span>   -<span class="ruby"> schemas.json
+</span>   -<span class="ruby"> art.mustache
+</span>   -<span class="ruby"> blog.mustache
+</span>   -<span class="ruby"> project.mustache
+</span> -<span class="ruby"> _utils/
+</span>   -<span class="ruby"> help.py
+</span></code></pre><p>I used the mustache templating language for easy templating. The art.mustache
+file looks like this:</p><pre><code class="hljs language-yaml"><span class="hljs-meta">---</span>
+<span class="hljs-attr">title:</span> {{<span class="hljs-string">title</span>}}
+<span class="hljs-attr">src:</span> {{<span class="hljs-string">img</span>}}
+{{<span class="hljs-comment">#other}}</span>
+<span class="hljs-attr">others:</span>
+{{<span class="hljs-string">/other</span>}}
+{{<span class="hljs-comment">#other}}</span>
+   <span class="hljs-bullet">-</span> {{<span class="hljs-string">file</span>}}
+{{<span class="hljs-string">/other</span>}}
+<span class="hljs-attr">description:</span> {{<span class="hljs-string">desc</span>}}
+<span class="hljs-meta">---
+</span></code></pre><p>This method gives me a lot of flexibility to flesh out the templates in the
+future. I could even add content into the body text, in addition to the front
+matter.</p><p>I used Python and the <code>pystache</code> library to take the input and render out the
+correct files.</p><p>To take input, I wrote a recursive function that looks at the schema specified
+by the <code>schemas.json</code> file.</p><p>Here is the entirety of the schemas file:</p><pre><code class="hljs language-json">{
+    <span class="hljs-attr">"blog"</span>: {
+        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"required"</span>,
+        <span class="hljs-attr">"author"</span>: <span class="hljs-string">"Naitian Zhou"</span>,
+        <span class="hljs-attr">"cover"</span>: <span class="hljs-string">"required"</span>,
+        <span class="hljs-attr">"desc"</span>: <span class="hljs-string">"A blog post"</span>,
+        <span class="hljs-attr">"tag"</span>: [
+            {<span class="hljs-attr">"name"</span>: <span class="hljs-string">""</span>}
+        ]
+    },
+    <span class="hljs-attr">"art"</span>: {
+        <span class="hljs-attr">"title"</span>: <span class="hljs-string">"required"</span>,
+        <span class="hljs-attr">"img"</span>: <span class="hljs-string">"required"</span>,
+        <span class="hljs-attr">"desc"</span>: <span class="hljs-string">"An art piece"</span>,
+        <span class="hljs-attr">"other"</span>: [
+            {<span class="hljs-attr">"file"</span>: <span class="hljs-string">""</span>}
+        ]
+    },
+    <span class="hljs-attr">"project"</span>: {
+        <span class="hljs-attr">"title"</span>: <span class="hljs-string">""</span>,
+        <span class="hljs-attr">"thumb"</span>: <span class="hljs-string">""</span>,
+        <span class="hljs-attr">"desc"</span>: <span class="hljs-string">"A project page"</span>,
+        <span class="hljs-attr">"tech"</span>: [
+            {<span class="hljs-attr">"name"</span>: <span class="hljs-string">""</span>}
+        ]
+    }    
+}
+</code></pre><p>The function looks like this:</p><pre><code class="hljs language-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">prompt</span>(<span class="hljs-params">title, obj</span>):</span>
+    <span class="hljs-string">"""Prompt for input
+
+    :obj: Empty Object
+    :returns: Filled-in object
+
+    """</span>
+    <span class="hljs-keyword">for</span> key <span class="hljs-keyword">in</span> obj:
+        <span class="hljs-keyword">if</span> <span class="hljs-built_in">type</span>(obj[key]) <span class="hljs-keyword">is</span> <span class="hljs-built_in">list</span>:
+            <span class="hljs-keyword">if</span> <span class="hljs-built_in">input</span>(<span class="hljs-string">'Would you like to add a {}? (y/N)'</span>.<span class="hljs-built_in">format</span>(key)) == <span class="hljs-string">'y'</span>:
+                <span class="hljs-keyword">while</span> <span class="hljs-literal">True</span>:
+                    obj[key].append(prompt(<span class="hljs-string">'{} > {}'</span>.<span class="hljs-built_in">format</span>(title, key), copy.deepcopy(obj[key][<span class="hljs-number">0</span>])))
+                    <span class="hljs-keyword">if</span> <span class="hljs-built_in">input</span>(<span class="hljs-string">'Finished? (y/N)'</span>) == <span class="hljs-string">'y'</span>:
+                        <span class="hljs-keyword">break</span>
+            obj[key] = obj[key][<span class="hljs-number">1</span>:] <span class="hljs-keyword">if</span> <span class="hljs-built_in">len</span>(obj[key]) >= <span class="hljs-number">2</span> <span class="hljs-keyword">else</span> <span class="hljs-literal">None</span>
+        <span class="hljs-keyword">else</span>:
+            message = <span class="hljs-string">'{} > {}: '</span>.<span class="hljs-built_in">format</span>(title, key) <span class="hljs-keyword">if</span> obj[key] == <span class="hljs-string">''</span> <span class="hljs-keyword">else</span> <span class="hljs-string">'{} > {}({}): '</span>.<span class="hljs-built_in">format</span>(title, key, obj[key])
+            val = <span class="hljs-built_in">input</span>(message)
+            <span class="hljs-keyword">if</span> val != <span class="hljs-string">''</span>:
+                obj[key] = val
+    <span class="hljs-keyword">return</span> obj
+</code></pre><p>It prompts you for the requisite values (and keeps the default if you don't
+enter anything), and recursively goes into lists if lists are present. It will
+then return an <code>OrderedDict</code> that we can feed into <code>pystache.render()</code>.</p><p>Now whenever I want to write a new blog post, I can just call</p><pre><code class="hljs language-vim">$ _utils/<span class="hljs-keyword">help</span>.<span class="hljs-keyword">py</span> <span class="hljs-keyword">new</span> blog
+</code></pre><p>and it will hold my hand as we navigate through the front matter options.</p><p>You can find all of the files on the <a href="https://github.com/naitian/PV2">Github for my blog</a>.</p><p>More specifically, here are the <a href="https://github.com/naitian/PV2/blob/master/_util/help.py">Python
+script</a> and the
+<a href="https://github.com/naitian/PV2/tree/master/_templates">template directory</a></p></section>
+</article>
+
+        </div>
+    </body>
+</html>

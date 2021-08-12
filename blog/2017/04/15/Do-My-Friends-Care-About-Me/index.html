@@ -1,0 +1,261 @@
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/styles/a11y-dark.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js"></script>
+        <link href="/css/base.css" rel="stylesheet">
+
+        <title>Do My Friends Care About Me?</title>
+    <link href="/css/blog.css" rel="stylesheet"></head>
+    <body>
+        <div class="content">
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/blog">Blog</a></li>
+            </ul> 
+        </nav>
+        
+<article>
+    <h1 class="title">Do My Friends Care About Me?</h1>
+    <section><h2>A Brief Analysis of my Facebook Friends</h2><p>This was a (not so) quick look at how I stacked up against my Facebook friends in a totally arbitrary measure.</p><p>I looked at the ratio of likes and reacts (henceforth to be referred to as a singular entity: "realikes") to a user's profile picture to that user's friend count. That is, what percentage of a user's friends realiked his or her profile picture?</p><h3>Gathering Data</h3><p><em>I'll post a more detailed write-up of the technical aspects of scraping the Facebook profiles, as well as an iPython Notebook with the code.</em></p><p>The most challenging (and time consuming) part was gathering the data. I ran into several dead ends before finally scraping the data from Facebook using Selenium. I'll go through all of the failed methods and my succeessful method here.</p><p>I had already collected a list of Facebook profile URLs just using Chrome Dev Tools on the client side.</p><p>My first idea was to use the Facebook Graph API. However, that quickly proved to be impossible, mainly because <a href="http://stackoverflow.com/a/39649908">this StackOverflow answer</a> said so.</p><p>So on to the second solution! I figured I could use the python <code>requests</code> and <code>beautifulsoup</code> libraries to crawl Facebook, and just pass in my Facebook cookies for auth. While the authentication totally worked (exciting!), I discovered that Facebook does basically all of the rendering client side, so the HTML that I received was just a bunch of links to async scripts.</p><p>Ultimately, I resorted to Selenium to scraping first the links to profile pictures, and later, the actual realike counts.</p><h3>Examining the Data</h3><p>After a little bit of cleaning up in Excel, I was ready to take a deeper look at the data.</p><pre><code class="hljs language-python"><span class="hljs-comment"># Import our beloved libraries</span>
+
+<span class="hljs-keyword">import</span> pandas <span class="hljs-keyword">as</span> pd
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">import</span> matplotlib.pyplot <span class="hljs-keyword">as</span> plt
+</code></pre><pre><code class="hljs language-python"><span class="hljs-comment"># Read in the data</span>
+
+data = pd.read_csv(<span class="hljs-string">'./data.csv'</span>)
+</code></pre><pre><code class="hljs language-python"><span class="hljs-comment"># View the first 5 entries</span>
+
+data[:<span class="hljs-number">5</span>]
+</code></pre><div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th># Likes on Pic</th>
+      <th># Friends</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>77.0</td>
+      <td>321.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>137.0</td>
+      <td>527.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>176.0</td>
+      <td>563.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>54.0</td>
+      <td>898.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>103.0</td>
+      <td>283.0</td>
+    </tr>
+  </tbody>
+</table>
+</div><pre><code class="hljs language-python"><span class="hljs-comment"># This includes "bad" rows, which don't have values for either or both of the columns</span>
+<span class="hljs-built_in">len</span>(data)
+</code></pre><pre><code class="hljs"></code></pre><pre><code class="hljs language-python"><span class="hljs-comment"># Drop the bad stuff</span>
+data = data.dropna()
+</code></pre><pre><code class="hljs language-python"><span class="hljs-built_in">len</span>(data)
+</code></pre><pre><code class="hljs"></code></pre><pre><code class="hljs language-python">plt.plot(data[<span class="hljs-string">'# Friends'</span>], data[<span class="hljs-string">'# Likes on Pic'</span>], <span class="hljs-string">'bo'</span>)
+plt.title(<span class="hljs-string">'Realikes to Friend Count'</span>)
+plt.ylabel(<span class="hljs-string">'Realikes'</span>)
+plt.xlabel(<span class="hljs-string">'# Friends'</span>)
+</code></pre><pre><code class="hljs language-mipsasm">&#x3C;matplotlib<span class="hljs-meta">.text</span><span class="hljs-meta">.Text</span> <span class="hljs-built_in">at</span> <span class="hljs-number">0x115283f28</span>>
+</code></pre><figure>
+<img src="/assets/img/output_7_1" alt="">
+</figure><p>There seems to be a general upwards trend, with users with more friends receiving a greater amount of likes from friends. This makes sense, since their pictures go out to a larger audience. I am more interested in the ratio between the realike count and friend count.</p><h3>Looking at the Realike Ratios</h3><pre><code class="hljs language-python"><span class="hljs-comment"># Insert new column of the ratios.</span>
+data[<span class="hljs-string">'Ratio'</span>] = data[<span class="hljs-string">'# Likes on Pic'</span>] / data[<span class="hljs-string">'# Friends'</span>]
+</code></pre><pre><code class="hljs language-python"><span class="hljs-comment"># First look at the ratios! Just a brief summary.</span>
+data[<span class="hljs-string">'Ratio'</span>].describe()
+</code></pre><pre><code class="hljs language-apache"><span class="hljs-attribute">count</span>    <span class="hljs-number">278</span>.<span class="hljs-number">000000</span>
+<span class="hljs-attribute">mean</span>       <span class="hljs-number">0</span>.<span class="hljs-number">158833</span>
+<span class="hljs-attribute">std</span>        <span class="hljs-number">0</span>.<span class="hljs-number">093243</span>
+<span class="hljs-attribute">min</span>        <span class="hljs-number">0</span>.<span class="hljs-number">000000</span>
+<span class="hljs-attribute">25</span>%        <span class="hljs-number">0</span>.<span class="hljs-number">083202</span>
+<span class="hljs-attribute">50</span>%        <span class="hljs-number">0</span>.<span class="hljs-number">159469</span>
+<span class="hljs-attribute">75</span>%        <span class="hljs-number">0</span>.<span class="hljs-number">220952</span>
+<span class="hljs-attribute">max</span>        <span class="hljs-number">0</span>.<span class="hljs-number">492114</span>
+<span class="hljs-attribute">Name</span>: Ratio, dtype: float<span class="hljs-number">64</span>
+</code></pre><p>Ok, so this summary provides some interesting information.</p><p>Just from clicking around Facebook earlier, I had thought that the average ratio would be somewhere between 20% and 30%, but it ended up being much lower, at 15.9%.</p><p>Also interesting to note is that no one had over half of their friends like their profile picture, although the max of 49.2% came pretty close.</p><pre><code class="hljs language-python"><span class="hljs-comment"># Sort data by friend count</span>
+data = data.sort_values(by=<span class="hljs-string">'# Friends'</span>)
+</code></pre><pre><code class="hljs language-python">%matplotlib inline
+
+plt.plot(data[<span class="hljs-string">'# Friends'</span>], data.Ratio, <span class="hljs-string">'bo'</span>)
+plt.xlabel(<span class="hljs-string">'# Friends'</span>)
+plt.ylabel(<span class="hljs-string">'Ratio'</span>)
+plt.title(<span class="hljs-string">'# Friends vs Realike Ratio'</span>)
+</code></pre><pre><code class="hljs language-mipsasm">&#x3C;matplotlib<span class="hljs-meta">.text</span><span class="hljs-meta">.Text</span> <span class="hljs-built_in">at</span> <span class="hljs-number">0x113fc76a0</span>>
+</code></pre><img src="/assets/img/output_14_1.png" alt=""><p>One of the biggest things I was hoping to see was a correlation between friend size and ratio. However, that did not really manifest itself. As you can see, the points are relatively evenly distributed.</p><pre><code class="hljs language-python"><span class="hljs-comment"># Top 5 realike ratios.</span>
+data.sort_values(by=<span class="hljs-string">'Ratio'</span>, ascending=<span class="hljs-literal">False</span>)[:<span class="hljs-number">5</span>]
+</code></pre><div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th># Likes on Pic</th>
+      <th># Friends</th>
+      <th>Ratio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>8</th>
+      <td>156.0</td>
+      <td>317.0</td>
+      <td>0.492114</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>155.0</td>
+      <td>376.0</td>
+      <td>0.412234</td>
+    </tr>
+    <tr>
+      <th>158</th>
+      <td>280.0</td>
+      <td>742.0</td>
+      <td>0.377358</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>103.0</td>
+      <td>283.0</td>
+      <td>0.363958</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>406.0</td>
+      <td>1118.0</td>
+      <td>0.363148</td>
+    </tr>
+  </tbody>
+</table>
+</div><pre><code class="hljs language-python"><span class="hljs-comment"># Bottom 5 realike ratios.</span>
+data.sort_values(by=<span class="hljs-string">'Ratio'</span>, ascending=<span class="hljs-literal">True</span>)[:<span class="hljs-number">5</span>]
+</code></pre><div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th># Likes on Pic</th>
+      <th># Friends</th>
+      <th>Ratio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>92</th>
+      <td>0.0</td>
+      <td>125.0</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>40</th>
+      <td>0.0</td>
+      <td>117.0</td>
+      <td>0.000000</td>
+    </tr>
+    <tr>
+      <th>299</th>
+      <td>1.0</td>
+      <td>370.0</td>
+      <td>0.002703</td>
+    </tr>
+    <tr>
+      <th>57</th>
+      <td>2.0</td>
+      <td>539.0</td>
+      <td>0.003711</td>
+    </tr>
+    <tr>
+      <th>89</th>
+      <td>6.0</td>
+      <td>826.0</td>
+      <td>0.007264</td>
+    </tr>
+  </tbody>
+</table>
+</div><p>Viewing the lowest 5 realike ratios reveals that those with the lowest friend counts do <em>not</em> have the lowest realike ratios.</p><h4>Does Friend Count Matter?</h4><p>I then took a look at the distributions for users with more than 1000 friends compared to users with fewer than 1000 friends.</p><p>It's important to note that there are significantly more users with fewer than 1000 friends in my data set.</p><pre><code class="hljs language-python">gt1000 = data.loc[data[<span class="hljs-string">'# Friends'</span>] >= <span class="hljs-number">1000</span>]
+lt1000 = data.loc[data[<span class="hljs-string">'# Friends'</span>] &#x3C; <span class="hljs-number">1000</span>]
+</code></pre><pre><code class="hljs language-python"><span class="hljs-built_in">len</span>(gt1000)
+</code></pre><pre><code class="hljs"></code></pre><pre><code class="hljs language-python">gt1000[<span class="hljs-string">'Ratio'</span>].describe()
+</code></pre><pre><code class="hljs language-apache"><span class="hljs-attribute">count</span>    <span class="hljs-number">44</span>.<span class="hljs-number">000000</span>
+<span class="hljs-attribute">mean</span>      <span class="hljs-number">0</span>.<span class="hljs-number">173164</span>
+<span class="hljs-attribute">std</span>       <span class="hljs-number">0</span>.<span class="hljs-number">084129</span>
+<span class="hljs-attribute">min</span>       <span class="hljs-number">0</span>.<span class="hljs-number">008739</span>
+<span class="hljs-attribute">25</span>%       <span class="hljs-number">0</span>.<span class="hljs-number">116832</span>
+<span class="hljs-attribute">50</span>%       <span class="hljs-number">0</span>.<span class="hljs-number">180046</span>
+<span class="hljs-attribute">75</span>%       <span class="hljs-number">0</span>.<span class="hljs-number">219244</span>
+<span class="hljs-attribute">max</span>       <span class="hljs-number">0</span>.<span class="hljs-number">363148</span>
+<span class="hljs-attribute">Name</span>: Ratio, dtype: float<span class="hljs-number">64</span>
+</code></pre><pre><code class="hljs language-python">lt1000[<span class="hljs-string">'Ratio'</span>].describe()
+</code></pre><pre><code class="hljs language-apache"><span class="hljs-attribute">count</span>    <span class="hljs-number">234</span>.<span class="hljs-number">000000</span>
+<span class="hljs-attribute">mean</span>       <span class="hljs-number">0</span>.<span class="hljs-number">156139</span>
+<span class="hljs-attribute">std</span>        <span class="hljs-number">0</span>.<span class="hljs-number">094783</span>
+<span class="hljs-attribute">min</span>        <span class="hljs-number">0</span>.<span class="hljs-number">000000</span>
+<span class="hljs-attribute">25</span>%        <span class="hljs-number">0</span>.<span class="hljs-number">072971</span>
+<span class="hljs-attribute">50</span>%        <span class="hljs-number">0</span>.<span class="hljs-number">155958</span>
+<span class="hljs-attribute">75</span>%        <span class="hljs-number">0</span>.<span class="hljs-number">220952</span>
+<span class="hljs-attribute">max</span>        <span class="hljs-number">0</span>.<span class="hljs-number">492114</span>
+<span class="hljs-attribute">Name</span>: Ratio, dtype: float<span class="hljs-number">64</span>
+</code></pre><p>The mean ratio for those with > 1000 friends is a little bit larger than those without, as is the median.</p><pre><code class="hljs language-python">%matplotlib inline
+
+plt.figure(figsize=(<span class="hljs-number">12</span>, <span class="hljs-number">4</span>))
+
+plt.subplot(<span class="hljs-number">121</span>)
+plt.plot(lt1000[<span class="hljs-string">'# Friends'</span>], lt1000[<span class="hljs-string">'Ratio'</span>], <span class="hljs-string">'ro'</span>)
+plt.plot(gt1000[<span class="hljs-string">'# Friends'</span>] - <span class="hljs-number">1000</span>, gt1000[<span class="hljs-string">'Ratio'</span>], <span class="hljs-string">'bo'</span>)
+
+plt.xlabel(<span class="hljs-string">'# Friends'</span>)
+plt.ylabel(<span class="hljs-string">'Realike Ratio'</span>)
+</code></pre><pre><code class="hljs language-mipsasm">&#x3C;matplotlib<span class="hljs-meta">.text</span><span class="hljs-meta">.Text</span> <span class="hljs-built_in">at</span> <span class="hljs-number">0x1140b42e8</span>>
+</code></pre><img src="/assets/img/output_25_1.png" alt=""><p>This plot might be a little bit confusing. The red dots represents users with fewer than 1000 friends. The blue dots represents users with 1000 or more friends, but the dots are scaled so as to align with the red dots (by subtracting 1000 from the friend count).</p><p>What does this reveal? Not much. There are more red dots in the upper right corner than blue dots, but the points are spread evenly enough where this is insignificant.</p><h3>Looking at Friend Counts</h3><p>As an aside, I took a look at the distribution of friend counts.</p><pre><code class="hljs language-python">data[<span class="hljs-string">'# Friends'</span>].describe()
+</code></pre><pre><code class="hljs language-apache"><span class="hljs-attribute">count</span>     <span class="hljs-number">278</span>.<span class="hljs-number">000000</span>
+<span class="hljs-attribute">mean</span>      <span class="hljs-number">656</span>.<span class="hljs-number">589928</span>
+<span class="hljs-attribute">std</span>       <span class="hljs-number">395</span>.<span class="hljs-number">612176</span>
+<span class="hljs-attribute">min</span>        <span class="hljs-number">22</span>.<span class="hljs-number">000000</span>
+<span class="hljs-attribute">25</span>%       <span class="hljs-number">371</span>.<span class="hljs-number">750000</span>
+<span class="hljs-attribute">50</span>%       <span class="hljs-number">564</span>.<span class="hljs-number">500000</span>
+<span class="hljs-attribute">75</span>%       <span class="hljs-number">841</span>.<span class="hljs-number">750000</span>
+<span class="hljs-attribute">max</span>      <span class="hljs-number">2403</span>.<span class="hljs-number">000000</span>
+<span class="hljs-attribute">Name</span>: # Friends, dtype: float<span class="hljs-number">64</span>
+</code></pre><p>Conclusion? My friends, on average, have twice as many friends as I do. Sad.</p><pre><code class="hljs language-python">plt.figure(figsize=(<span class="hljs-number">16</span>, <span class="hljs-number">8</span>))
+
+plt.subplot(<span class="hljs-number">121</span>)
+plt.boxplot(data[<span class="hljs-string">'# Friends'</span>])
+plt.ylabel(<span class="hljs-string">'# Friends'</span>)
+
+plt.subplot(<span class="hljs-number">122</span>)
+plt.hist(data[<span class="hljs-string">'# Friends'</span>], bins=<span class="hljs-number">20</span>)
+plt.ylabel(<span class="hljs-string">'Freq.'</span>)
+plt.xlabel(<span class="hljs-string">'# Friends'</span>)
+plt.title(<span class="hljs-string">'How Many Friends My Friends Have'</span>)
+
+</code></pre><pre><code class="hljs language-mipsasm">&#x3C;matplotlib<span class="hljs-meta">.text</span><span class="hljs-meta">.Text</span> <span class="hljs-built_in">at</span> <span class="hljs-number">0x114f552b0</span>>
+</code></pre><figure class="fullwidth">
+<img src="/assets/img/output_30_1.png" alt="Graph of friend count distributions.">
+<figcaption>Distribution of my friends' friend counts</figcaption>
+</figure><p>As shown by the box plot and, perhaps more obviously, by the histogram, the distribution of friend counts is skewed right, accounting for the large difference between mean friend count and median friend count. Either way, I look to be pretty anti-social.</p><h3>Conclusions?</h3><p>I can't really draw any statistically significant conclusions from these data. That said, there were some trends that were insightful or interesting to some extent.</p><h4>Quality over Quantity</h4><p>It's apparent that having a higher friend count does not necessarily result in a higher realike ratio. For 4 of the top 5 ranked realike users, the friend count was below the third quartile. In fact, the user with the highest friend count (2403 friends) had one of the lowest ratios (.8%)</p><p>That said, by examining the bottom 5, almost all were below the median friend count. This seems to imply that having too few friends is also not ideal.</p><p>Given these very broad generalizations, one can make the logical ssumption that there is a "Goldilocks zone" of friend count that yields that highest ratio. However, the data is probably much to scattered to be able to actually generate a useful model.</p><h4>An Individualized Analysis</h4><p>This data set was composed of only my friends. This meant the data set was tailored uniquely to my choice of friends, which are mostly high schoolers in the NOVA area.</p><h4>Next Steps</h4><p>There are quite a few paths in which I can proceed with this little experiment, if I want to. For one thing, it would be great to acquire more data, and, now that I think of it, generally profile pictures and friend counts are public, so I could expand the data set to beyond my friends.</p><p>Looking at the contents of the profile picture would also be interesting. For example, in pictures that were especially popular, were there multiple people? What is the gender / age / etc of the subject? However, this will be a much more nontrivial task.</p></section>
+</article>
+
+        </div>
+    </body>
+</html>

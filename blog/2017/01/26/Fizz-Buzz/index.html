@@ -1,0 +1,108 @@
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/styles/a11y-dark.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js"></script>
+        <link href="/css/base.css" rel="stylesheet">
+
+        <title>Fizz Buzz</title>
+    <link href="/css/blog.css" rel="stylesheet"></head>
+    <body>
+        <div class="content">
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/blog">Blog</a></li>
+            </ul> 
+        </nav>
+        
+<article>
+    <h1 class="title">Fizz Buzz</h1>
+    <section><h2>Fizz Buzz? How trivial.</h2><p>Recently, I needed to submit a fizz-buzz program as part of my application for a
+summer internship (hi Dagger Analytics!). I've decided to take advantage of that
+to talk about why sometimes, the most elegant code isn't the best code.</p></section>
+<section><h2>Cutting to the chase</h2><p>Here is my Fizz-Buzz code:</p><pre><code class="hljs language-javascript"><span class="hljs-comment">// Javascript solution</span>
+
+<span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &#x3C; <span class="hljs-number">101</span>; i++) {
+   <span class="hljs-keyword">let</span> string = <span class="hljs-string">''</span>;
+   <span class="hljs-keyword">if</span> (i % <span class="hljs-number">3</span> === <span class="hljs-number">0</span>) {
+      string += <span class="hljs-string">'fizz'</span>;
+   }
+   <span class="hljs-keyword">if</span> (i % <span class="hljs-number">5</span> === <span class="hljs-number">0</span>) {
+      string += <span class="hljs-string">'buzz'</span>;
+   }
+   <span class="hljs-keyword">if</span> (string === <span class="hljs-string">''</span>) {
+      string = <span class="hljs-built_in">parseInt</span>(i);
+   }
+   <span class="hljs-built_in">console</span>.log(string)
+}
+</code></pre><div id="output">
+<br>
+<b style="cursor: pointer">Click to Toggle Output</b>
+<div style="overflow: hidden" id="actualOutput">
+</div>
+</div><script>
+
+window.onload = function () {
+   let open = false;
+   let out = document.querySelector('#actualOutput');
+   out.style.height = 0;
+   document.querySelector('#output > b').addEventListener('click', () => {
+      if (open) {
+         out.style.height = 0;
+      } else {
+         out.style.height = '100%';
+      }
+      open = !open;
+   })
+   for(let i = 1; i < 101; i++) {
+      let string = '';
+      if (i % 3 === 0) {
+         string += 'fizz';
+      }
+      if (i % 5 === 0) {
+         string += 'buzz';
+      }
+      if (string === '') {
+         string = parseInt(i);
+      }
+      out.innerHTML += "<br />" + string;
+      console.log(string);
+   }
+}
+
+</script></section>
+<section><h2>Post-mortem (the good part)</h2><p>Ok, so now that you have viewed this solution, you may have some questions. I
+can hear them right now.</p><blockquote>
+<p>Naitian, why would you use Javascript? Why are you using 13 lines to write
+something this simple? Etc, etc.</p>
+</blockquote><p>Well to address the elephant in the room, I used Javascript because it was the
+most convenient thing for me to write in. But to satisfy you, here's a solution
+in Python.</p><pre><code class="hljs language-python"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">101</span>):
+    string = <span class="hljs-string">''</span>
+    <span class="hljs-keyword">if</span> i % <span class="hljs-number">3</span> == <span class="hljs-number">0</span>:
+        string += <span class="hljs-string">'fizz'</span>
+    <span class="hljs-keyword">if</span> i % <span class="hljs-number">5</span> == <span class="hljs-number">0</span>:
+        string += <span class="hljs-string">'buzz'</span>
+    <span class="hljs-keyword">if</span> string == <span class="hljs-string">''</span>:
+        string = <span class="hljs-built_in">str</span>(i)
+    <span class="hljs-built_in">print</span>(string)
+</code></pre><p>As you can see, it's the <strong>exact same thing</strong>. Alright, cool. So why didn't I do
+something totally rad, like this list comprehension!?</p><pre><code class="hljs language-python"><span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> [<span class="hljs-built_in">str</span>(i) <span class="hljs-keyword">if</span> (i % <span class="hljs-number">3</span> != <span class="hljs-number">0</span> <span class="hljs-keyword">and</span> i % <span class="hljs-number">5</span> != <span class="hljs-number">0</span>) <span class="hljs-keyword">else</span> <span class="hljs-string">'fizz'</span> <span class="hljs-keyword">if</span> (i % <span class="hljs-number">3</span> == <span class="hljs-number">0</span>) <span class="hljs-keyword">else</span> <span class="hljs-string">'buzz'</span> <span class="hljs-keyword">if</span> (i % <span class="hljs-number">5</span> == <span class="hljs-number">0</span>) <span class="hljs-keyword">else</span> <span class="hljs-string">'fizzbuzz'</span> <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">1</span>, <span class="hljs-number">101</span>)]:
+    <span class="hljs-built_in">print</span>(line)
+</code></pre><p>See, it's only 2 lines and does the exact same thing! It also showcases my l33t
+h4x0r skills! Well, yeah, but you tell me what's going on in that mess.</p><p>When writing code, especially when it's a one-off sort of thing, it's often easy
+to get stuck trying to get a more "elegant" solution. But I think it's good to
+keep in mind that the technically superior solution is not necessarily the best
+solution. Sure, the list comprehension is <a href="http://stackoverflow.com/questions/22108488/are-list-comprehensions-and-functional-functions-faster-than-for-loops">arguably
+faster</a>, but you shouldn't sacrifice that for readability, especially at such small scales.</p><p>That's not to say you shouldn't try to write good, performant code, but instead
+you should focus on writing maintainable, bug-free code, which ends up being a
+much more valuable skill in the real world.</p></section>
+</article>
+
+        </div>
+    </body>
+</html>

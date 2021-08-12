@@ -1,0 +1,189 @@
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/styles/a11y-dark.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js"></script>
+        <link href="/css/base.css" rel="stylesheet">
+
+        <title>About this Site - The Terminal</title>
+    <link href="/css/blog.css" rel="stylesheet"></head>
+    <body>
+        <div class="content">
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/blog">Blog</a></li>
+            </ul> 
+        </nav>
+        
+<article>
+    <h1 class="title">About this Site - The Terminal</h1>
+    <h3>I'm Back!</h3>
+<p>I've been planning on continuing my "About this Site" series for a while now
+(like over 2 months), but I guess I've been distracted with other things (as a
+high schooler does). Regardless, partly due to the prompting of a friend, here
+is the third installment.</p>
+<h3>Table of Contents</h3>
+<ul>
+<li><a href="#inspiration">Inspiration</a></li>
+<li><a href="#problems">Problems</a></li>
+<li><a href="#specs">Specs</a></li>
+<li><a href="#lets-get-down-to-business">Let's Get Down to Business</a>
+<ul>
+<li><a href="#better-design">Better Design</a></li>
+<li><a href="#procedural-generation">Procedural Generation</a></li>
+<li><a href="#extensibility">Extensibility</a></li>
+</ul>
+</li>
+<li><a href="#wrap-up">Wrap-up</a>
+<ul>
+<li><a href="#improvements">Improvements</a></li>
+</ul>
+</li>
+</ul>
+<h3>Inspiration</h3>
+<p>I believe I have waxed poetic about the command line before. I most definitely
+will in the future if I have not already. I was, therefore, kind of infatuated
+with the idea of a website that has a little command line built into it. This
+was implemented in my original website, where I even added scan lines and a
+subtle flicker to really drive home the retro feel.</p>
+<figure class="figure">
+    <img src="/assets/img/old_site_terminal.png">
+    <figcaption class="img-caption">My old website</figcaption>
+</figure>
+<p>For this refresh, though, I wanted to make something cleaner. More importantly,
+I wanted to make something that required very little maintenance.</p>
+<h3>Problems</h3>
+<p>First, let's go through some of the problems with the previous Javascript
+terminal. For one thing, there were errors that were straight up ignored (to be
+fair, this error didn't break any functionality).</p>
+<figure class="figure">
+    <img src="/assets/img/old_terminal_errors.png">
+    <figcaption class="img-caption">Look at all those
+errors</figcaption>
+</figure>
+<p>Also, just about everything, from the commands to the available files, was
+hardcoded. This meant if I were to add a new section to my site, I would have to
+manually update that code. What a drag. It ended up with code that looked like
+this:</p>
+<pre><code class="hljs language-javascript"><span class="hljs-keyword">if</span> (parsed.cmd === <span class="hljs-string">'open'</span>) {
+<span class="hljs-keyword">var</span> target = <span class="hljs-string">'#'</span> + parsed.arg;
+$.smoothScroll({
+<span class="hljs-attr">scrollTarget</span>: target
+});
+} <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (parsed.cmd === <span class="hljs-string">'ls'</span>) {
+out = <span class="hljs-string">'about&#x26;nbsp;&#x26;nbsp;&#x26;nbsp;&#x26;nbsp;&#x26;nbsp;projects&#x26;nbsp;&#x26;nbsp;&#x26;nbsp;&#x26;nbsp;&#x26;nbsp;contact'</span>;
+} <span class="hljs-keyword">else</span> {
+out = <span class="hljs-string">'That command is not yet supported. Try ls or open.'</span>;
+}
+</code></pre>
+<p>Ewwwww.</p>
+<h3>Specs</h3>
+<p>So for this new and improved terminal, I wanted several features:</p>
+<ol>
+<li>Better design (this meant a visible, blinking cursor)</li>
+<li>Procedurally generated files (this proved to be the most challenging)</li>
+<li>Extensible command system (I used ES6 classes for this)</li>
+</ol>
+<h3>Let's Get Down to Business</h3>
+<p>We're not going to defeat the Huns, but we <em>are</em> going to make our new and
+improved terminal.</p>
+<h4>Better Design</h4>
+<p>Okay, so this one is kind of vague. I mocked up the <a href="/blog/2017-03-05-About-this-Site---Design/">design</a>, which was heavily
+inspired by my actual terminal.</p>
+<p>The most difficult part was probably hiding the cursor and replacing it with a
+block cursor. I still don't have a perfect implementation - in case you didn't
+realize, you can't actually move the cursor around on the line. It just stays at
+the end of the line.</p>
+<p>The thing about the cursor (or caret, if you'd like) is that it is always the
+same color as your text. There's no way to style it individually. The trick here
+is to <strong>make the text transparent</strong>. Then, just add a text-shadow with your text
+color and no offset. This keeps everything the same except for the caret, which
+is now transparent!</p>
+<pre><code class="hljs language-css"><span class="hljs-selector-id">#input</span> {
+    <span class="hljs-attribute">color</span>: transparent;
+    <span class="hljs-attribute">text-shadow</span>: <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">0</span> <span class="hljs-number">#0EFF1F</span>;
+}
+</code></pre>
+<p>Wow!! Nice.</p>
+<p>Another big problem was making scrolling work nicely. This was more difficult
+than you would initially expect, because the input is a <code>contentEditable</code> div,
+while the rest of the text is a separate div. A couple of <code>overflow</code> rules did
+the job nicely, though.</p>
+<h4>Procedural Generation</h4>
+<p>This is the cool part! My biggest gripe with the old implementation was how much
+was hardcoded. I wanted to be able to more or less browse the entire site with
+the terminal, so hardcoding everything was not a viable option.</p>
+<p>This means I needed an API or something to query for all of the different parts
+of the site. Fortunately, I have Jekyll!</p>
+<p>Here's the amazing thing about Jekyll: it can generate <strong>any</strong> document. This
+includes not just Markdown or HTML files. The trick is to use Jekyll to generate
+a JSON file with information about the website.</p>
+<blockquote>
+<p><code>mind = blown</code></p>
+</blockquote>
+<p>Here are the entire contents of <code>terminal.json</code>, which is the relevant JSON
+file:</p>
+<pre><code class="hljs language-js">---
+---
+{% capture nl %}
+{% endcapture %}
+{% assign files = site.documents %}
+{% <span class="hljs-keyword">for</span> page <span class="hljs-keyword">in</span> site.html_pages %}
+{% assign files = files | push: page %}
+{% endfor %}
+{
+    {% <span class="hljs-keyword">for</span> page <span class="hljs-keyword">in</span> files %}
+    <span class="hljs-string">"{{ page.url }}"</span>: {
+        <span class="hljs-string">"content"</span>: <span class="hljs-string">"{{ page.content | replace: '"</span><span class="hljs-string">', "'</span><span class="hljs-string">" | normalize_whitespace}}"</span>
+    }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+}
+</code></pre>
+<p>That's all there is to it. This generates a JSON object of all of the pages in
+the website, with the url as the key and including the content as the sole
+property of each page.</p>
+<p>You end up with a JSON file looking like <a href="https://naitian.org/terminal.json">this</a>.</p>
+<p>Now, this is still not wonderful, because all we have now is a bunch of file
+paths. This doesn't encode information about what is and is not in the current
+directory.</p>
+<p>So I added a <code>pwd</code> variable. I now realize <code>pwd</code> stands for "print working
+directory", so it doesn't really make sense to name a variable that, but in my
+mind, it just means "our current working directory", and <code>ocwd</code> just doesn't have the same ring to it. I use this to keep track of where in the tree I am at the moment</p>
+<p>I then search down the list of files to see which paths are direct children of
+the <code>pwd</code>.</p>
+<p>Everything else is pretty straightforward: I just inject the <code>content</code> of the
+selected path.</p>
+<p>This is what gets me the procedurally generated functionality of the terminal.
+That's not all I wanted though; I wanted it to be even more dynamic. I wanted
+the terminal to be extensible, so that I would be able to add new commands
+really easily.</p>
+<p>Well then. Let's get started.</p>
+<h4>Extensibility</h4>
+<p>I decided on using ES6 classes to organize the JavaScript into a self-contained
+unit.I've experimented with this before to some success.</p>
+<p>The actual implementation was very strightforward. I basically have a map of
+possible commands mapped to the functions that they call. All of the commands
+have access to the instance variables. Easy, clean stuff.</p>
+<h3>Wrap-up</h3>
+<p>So I guess that sums up the tech componenet of the terminal easter egg. Even
+though it was just an easter egg, it was probably one of the things I spent the
+most time on, just to get everything working okay.</p>
+<h4>Improvements</h4>
+<p>There are still some improvements to be made; some (obviously) less trivial than
+others.</p>
+<ol>
+<li>I want tab completion.</li>
+<li>I want to be able to register new commands outside of the actual class</li>
+<li>Lists extend horizontally, not vertically.</li>
+</ol>
+<p>Overall, I'm really happy with how it turned out, though, and I think this is a
+great foundation to keep building on.</p>
+</article>
+
+        </div>
+    </body>
+</html>

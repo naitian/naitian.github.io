@@ -1,0 +1,65 @@
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/styles/a11y-dark.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js"></script>
+        <link href="/css/base.css" rel="stylesheet">
+
+        <title>The Blue Lagoon</title>
+    <link href="/css/blog.css" rel="stylesheet"></head>
+    <body>
+        <div class="content">
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/blog">Blog</a></li>
+            </ul> 
+        </nav>
+        
+<article>
+    <h1 class="title">The Blue Lagoon</h1>
+    <section><h2>The Blue Lagoon</h2><p><em>"The Blue Lagoon is a 1980 American romance and adventure film directed by
+Randal Kleiser"</em></p><p>This phrase is stuck in my head. Not because I'm a huge fan of poorly rated
+movies, but because it's a test phrase that Google likes to use to show off its
+speech synthesis algorithms. Speech synthesis has kinda been stuck in my head
+too.</p></section>
+<section><h2>Tacotron Yum</h2><p>Recently, researchers at Google published a paper describing a text-to-speech
+generation model called “Tacotron”. It uses deep learning to learn how to
+generate audio based on input text. Besides catching my attention due to the
+delicious sounding title, the paper intrigued me because of the problems that
+arise when trying to synthesize speech from text. Current speech synthesis
+models in production rely primarily on concatenation of pre-recorded words, with
+some smoothing to make the words flow together more. The problem with this
+method is that the length of words and intonation are not taken fully into
+consideration, causing the synthesized audio to sound robotic and unnatural.</p><p>Synthesizing speech is a non-trivial problem, mainly because there is a
+lot of interpolation involved. Raw text does not provide a lot of clues for the
+tone, inflection, and expressiveness. The inflection in asking a question, such
+as "It's your birthay today?", is significantly different from that in a statement
+such as "It's your birthday today!" In addition, individual voices,
+obviously, differ by a lot, based on gender, nationality, etc. It's hard to
+teach a computer to generalize the important parts.</p><p>Tacotron takes a different approach from the current concatenative
+methods: it uses an “end-to-end” approach, wherein it learns from text/speech
+pairs to determine how to directly generate the raw spectrogram given an input
+text. This allows for it to include features such as a natural rhythm of speech,
+incorporate stress and intonation. The strength of a deep learning model is that
+it can naturally incorporate features that may otherwise go overlooked. Since it
+learns from recordings, for example, and uses that to generate speech, the
+generated audio also includes mouth-sounds and breathing that make the speech
+sound more human.</p><p>Speech synthesis is an incredibly relevant application of computer
+science, which is why I found the topic so interesting. Text to speech could be
+used to automatically generate audiobooks, create dialogue procedurally, and
+provide accurate verbal translations. Personal assistant applications that use a
+conversational interface would require natural speech synthesis for a more
+immersive user experience.</p></section>
+<section><h2>Additional Reading</h2><p>You can read the Tacotron paper <a href="https://arxiv.org/abs/1703.10135">here</a> (arxiv
+1703.10135).</p><p>You can read about another one of Google's speech synthesis projects, WaveNet,
+<a href="https://deepmind.com/blog/wavenet-generative-model-raw-audio/">here</a> (website)
+or <a href="https://arxiv.org/abs/1609.03499">here</a> (paper; arxiv 1609.03499).</p></section>
+</article>
+
+        </div>
+    </body>
+</html>

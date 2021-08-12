@@ -1,0 +1,75 @@
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/styles/a11y-dark.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js"></script>
+        <link href="/css/base.css" rel="stylesheet">
+
+        <title>Chrome Developer Tools</title>
+    <link href="/css/blog.css" rel="stylesheet"></head>
+    <body>
+        <div class="content">
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/blog">Blog</a></li>
+            </ul> 
+        </nav>
+        
+<article>
+    <h1 class="title">Chrome Developer Tools</h1>
+    <section><h2>Chrome Dev Tools</h2><p>A good grasp of how to use Chrome (or equivalent) Dev Tools are one of the most fundamental skills a web developer must have. From monitoring network calls to debugging Javascript to testing out CSS style changes, Dev Tools provides a useful repertoire of functions to help you develop, test, and optimize a web page.</p></section>
+<section><h2>Why Chrome?</h2><p>There is not a particular reason why I chose Chrome Dev Tools over other browsers, other than that I use Chrome and Chrome Dev Tools more than other browsers. Chrome Dev Tools does offer a lot of useful features, some of which may apply to cutting-edge web development standards, that may not be present on other browsers.</p></section>
+<section><h2>Opening Chrome Dev Tools</h2><p>Windows: F12 or Ctrl+Shift+I
+Linux: Ctrl+Shift+I
+Mac: Cmd+Opt+I</p></section>
+<section><h2>CDT and the DOM</h2><p>DOM stands for Document Object Model. It's a convention for representing and manipulating objects in HTML, XML, and XHTML documents (characterized by the angle brackets).</p><h3>What can I do?</h3><ol>
+<li>Inspect any element</li>
+<li>View and change CSS rules</li>
+<li>View the element's box model</li>
+</ol><h3>Inspecting Elements</h3><p>There are several ways to select and inspect a particular element. One can:</p><p>Click on the element selection tool, then click on an element to jump to that position in the document.</p><img src="/assets/cursor-deselected.png" height="200"><p>Click on a specific element in the Dev Tools <em>Elements</em> view.</p><img src="/assets/click-element.png" height="200"><h3>What Can I Do With These Elements?</h3><p>Now that you have selected an element, you can right-click on the element to see some of the actions you can do:</p><img src="/assets/actions.png" height="200"><p>Especially notable is the ability to toggle states such as active, hover, etc.</p></section>
+<section><h2>Styling</h2><p>One of the most useful aspects of Dev Tools is the ability to change styles easily.</p><p>With an element selected, you can easily view its styles.</p><p>The "Styles" tab contains all of the CSS rules that govern the selected element.</p><img src="/assets/styles-tab.png" height="400"><p>We can see that the selected element has an id of "overlay", and a class of "shell", and that there are CSS rules defined for those selectors. The overridden styles are struck through. You can also toggle element state in this tab.</p><p>If you have animations or transitions with a timing function defined, you can also use the cubic bezier editor to help you with your animations.</p><img src="/assets/bezier.png" height="200"><h3>Box Model</h3><p>The Computed Box Model provides the final computed values of margin, padding, width, height, etc. This is particularly useful when creating responsive layouts, or when there's an awkward gap in your layout that you can't find the source of. You can access this view by clicking on the computed tab.</p><img src="/assets/computed.png" height="400"></section>
+<section><h2>Network</h2><p>Another very useful aspect of Dev Tools is the <em>Network</em> tab. This allows you to view all requests made from this webpage. This includes requests for images, files, fonts, scripts, etc.</p><p>It also helps you determine if there is a major bottleneck to page load times. In this image, try to find at least one request of each of the following types:</p><ol>
+<li>HTML Document</li>
+<li>Font</li>
+<li>Stylesheet</li>
+<li>Javascript File</li>
+<li>Image</li>
+</ol><img src="/assets/network-tab.png" height="400"><h3>Example Case Study</h3><p>Cubemania is a Rubik's Cube timing website that allows users to save their times. I use it a lot. Let's analyze some of the requests it makes, specifically when a user logs in.</p><img src="/assets/cubemania-home.png" height="200" alt="Cubemania Home Screen"><p>Now let's open up Chrome Dev Tools and switch over to the Network Tab.</p><img src="/assets/cubemania-pre.png" height="200"><p>Make sure that the red "record" button in the top left is active.</p><p>Now I'll click log in and see what requests are made.</p><p>We're hit by a barrage of requests. Let's look at the most interesting ones...</p><img src="/assets/cubemania-barrage.png" height="200"><p>There's a POST request at the very top. Usually these are for form submissions. Let's click it open and take a more detailed look.</p><img src="/assets/cubemania-post-1.png" height="200"><p>This a lot of information! We can deduce some things about how Cubemania works on the server side! For example, we now know that this POST request is making a call to the <code>http://www.cubemania.org/session</code> endpoint, and that our session is stored in a <code>_Cubemania_session</code> cookie. We can also see all of our request headers, which we might be able to use to recreate this request manually. If we scroll further down, we see the really interesting bit: the form data.</p><img src="/assets/cubemania-post-form.png" height="200"><p>Now, I blacked out my password, of course, but as you can see, we know exactly what fields are passed into the POST request! Now, you might notice that there is also an <code>authenticity_token</code> field. This is generated on the server side to try to make sure that you cannot spoof these requests. A bit of light Googling reveals that this is common in Ruby on Rails web apps. However, if we access the contents of the HTML first, we will be able to find the token and pass it into the POST request.</p></section>
+<section><h2>Resources Tab</h2><p>The resources tab contains information on the majority of client-side storage options. This includes local storage and cookies.</p><h3>Local Storage</h3><p>If we click open the local storage section, we can find that Cubemania stores all of my times in the local storage.</p><img src="/assets/cubemania-storage.png" height="400px"><h3>Cookies</h3><p>We can also view the cookies that Cubemania has stored. In here we do indeed see the <code>_Cubemania_session</code> cookie we saw mentioned previously.</p></section>
+<section><h2>Exercises</h2><ol>
+<li>Go on the <a href="http://www.cubemania.org">Cubemania</a> website and answer these questions:</li>
+</ol><ul>
+<li>Click on the 'Users' tab. What type of CSS selector is used to apply the yellow background on hover effect?</li>
+<li>Search for "naitian" in the search box. Monitor the network traffic. What is/are the query string parameter(s) of the search query? What is/are the value(s) of the parameter? Is this request a GET request or POST request? Why does that make sense?</li>
+</ul><ol start="2">
+<li>Visit this wonderful lawn care website: <a href="http://kamronsoldozy.github.io">http://kamronsoldozy.github.io</a></li>
+</ol><ul>
+<li>Look in the Console. What are some errors? Are any of these errors related to each other?</li>
+<li>Based on these errors, what part of the home page is broken? What is it supposed to do?</li>
+<li>How can we fix this?</li>
+</ul><p>Bonus) Solve a Rubik's cube in under 30 seconds.</p></section>
+<section><h2>Further Reading</h2><p>Chrome Developer Tools has a lot more to offer than just what we covered here. If you'd like to find out more, here are some materials to keep you occupied.</p><ul>
+<li><a href="https://developers.google.com/web/tools/chrome-devtools/?hl=en">Google Official Dev Tools Site</a></li>
+<li><a href="https://www.youtube.com/channel/UCnUYZLuoy1rq1aVMwx4aTzw">Chrome Developers YouTube Channel</a></li>
+<li><a href="https://developers.google.com/web/shows/ttt/?hl=en">Totally Tooling Tips</a></li>
+</ul></section>
+<section><h2>Exercise Answers</h2><blockquote>
+<p>1a.) <code>#content a</code></p>
+</blockquote><blockquote>
+<p>1b.) Parameter: <code>q</code>, Value: <code>naitian</code>, <code>GET</code> request, There is no need for a <code>POST</code> request, since this value does not need to be kept confidential.</p>
+</blockquote><blockquote>
+<p>2a.) There are three errors. The failure to load <code>jquery.min.js</code> is directly tied to the <code>Uncaught ReferenceError: $ not defined</code>.</p>
+</blockquote><blockquote>
+<p>2b.) By viewing the details of the <code>ReferenceError</code>, we see that we need jQuery in image_slide.js, which is supposed to provide an image slider.</p>
+</blockquote><blockquote>
+<p>2c.) If we load in jQuery, the image slider <em>should</em> no longer be broken, and will alternate between the 2 images.</p>
+</blockquote></section>
+</article>
+
+        </div>
+    </body>
+</html>

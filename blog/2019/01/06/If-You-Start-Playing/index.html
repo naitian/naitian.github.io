@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/styles/a11y-dark.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js"></script>
+        <link href="/css/base.css" rel="stylesheet">
+
+        <title>If You Start Playing...</title>
+    <link href="/css/blog.css" rel="stylesheet"></head>
+    <body>
+        <div class="content">
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/blog">Blog</a></li>
+            </ul> 
+        </nav>
+        
+<article>
+    <h1 class="title">If You Start Playing...</h1>
+    <section><h2>naitian.holiday</h2><p>I discovered early December 2018 that there existed <code>.christmas</code> and <code>.holiday</code>
+TLDs. Naturally, I had to purchase one, so I sprung for the non-denominational
+(and, more importantly, cheaper) <a href="https://naitian.holiday">naitian.holiday</a>
+domain.</p><p>The next question, of course, was what I should do with it. I ended up using it
+for two projects, so I definitely got my money's worth. One of the projects was
+<a href="https://naitian.holiday/iysp/?preset=umich">if you start playing</a>.</p></section>
+<section><h2>if you start playing...</h2><blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">If you start playing YouTube Rewind 2018 at 11:53 and 2 seconds on New Year's Eve, Will Smith will say "uhhhh that's hot" at exactly midnight.</p>— Fab NZ (@fab_nz) <a href="https://twitter.com/fab_nz/status/1079555364759031808?ref_src=twsrc%5Etfw">December 31, 2018</a></blockquote><p>Inspired by this meme format, I decided to make a New Year's countdown that
+would automatically start playing these videos at the correct time.</p><p>Here are the specs for the project:</p><h3>specs</h3><ol>
+<li><strong>client side</strong>: it really doesn't need a backend, and I wanted to host on
+S3, serve through CloudFront, etc.</li>
+<li><strong>customizable</strong>: I want to be able to share links to custom videos /
+timestamps.</li>
+<li><strong>dark theme</strong>: for the nighttime countdown, of course.</li>
+</ol><h3>tech</h3><p>Building out the application was actually pretty straightforward, thanks to the
+Youtube iframe API.</p><p>To make it customizable and all on the client side, I used <code>window.location</code> to
+get URL parameters.</p><pre><code class="hljs language-js"><span class="hljs-keyword">let</span> url = <span class="hljs-keyword">new</span> URL(<span class="hljs-built_in">window</span>.location.href);
+<span class="hljs-keyword">if</span> (url.searchParams.get(<span class="hljs-string">'custom'</span>)) {
+   <span class="hljs-keyword">const</span> id = url.searchParams.get(<span class="hljs-string">'id'</span>);
+   <span class="hljs-keyword">const</span> timestamp = url.searchParams.get(<span class="hljs-string">'timestamp'</span>);
+   vid = {
+       id,
+       timestamp
+   }
+} <span class="hljs-keyword">else</span> {
+    <span class="hljs-comment">// Get from list of presets</span>
+}
+</code></pre><p>You can check it out at
+<a href="https://naitian.holiday/iysp/?preset=umich">naitian.holiday/iysp/?preset=umich</a>.</p><p>The <a href="https://github.com/naitian/startplaying">Github Repo</a>.</p></section>
+</article>
+
+        </div>
+    </body>
+</html>

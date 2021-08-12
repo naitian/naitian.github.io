@@ -1,0 +1,72 @@
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/styles/a11y-dark.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js"></script>
+        <link href="/css/base.css" rel="stylesheet">
+
+        <title>The Consequence Eradicator™</title>
+    <link href="/css/blog.css" rel="stylesheet"></head>
+    <body>
+        <div class="content">
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/blog">Blog</a></li>
+            </ul> 
+        </nav>
+        
+<article>
+    <h1 class="title">The Consequence Eradicator™</h1>
+    <section><h2>Table of Contents</h2><ul>
+<li><a href="#mhacks-11-and-the-customary-apologies">MHacks 11 (and the customary apologies)</a></li>
+<li><a href="#conrad-the-consequence-eradicator">Conrad: the Consequence Eradicator</a></li>
+<li><a href="#step-1-data-collection">Step 1: Data Collection</a></li>
+<li><a href="#step-2-data-preprocessing">Step 2: Data Preprocessing</a></li>
+<li><a href="#step-3-modelling">Step 3: Modelling</a></li>
+<li><a href="#step-4-building-the-extension">Step 4: Building the Extension</a></li>
+<li><a href="#wrap-up">Wrap-Up</a></li>
+</ul></section>
+<section><h2>MHacks 11 (and the customary apologies)</h2><p>I have been kind of terrible about keeping up this blog. Sorry about that. That said,
+a lot has happened since the last blog post almost a full year ago. For one thing, I
+am a college kid now!</p><p></p><figure><img src="https://media.giphy.com/media/xWBUky3nYTGDwCUH0T/giphy.gif" alt="Go Blue!"></figure><p></p><p>I also had a great time as a tech intern for Capital One over the summer (something I'm
+definitely going to be writing about very soon).</p><p>But let's get back to this story.</p><p>MHacks 11 was held at the University of Michigan from October 12 - 14. I convinced my
+friend, David, to fly up to Ann Arbor all the way from Charlottesville for the event.</p><p>What follows is the story of how David (UVA '19), Renee (also U-M '22), and I did our parts in
+contributing to the eerie convergence between the Simpsons and reality.</p></section>
+<section><h2>Conrad: the Consequence Eradicator</h2><iframe width="560" height="315" src="https://www.youtube.com/embed/edoo6dH19ko" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe><p>You don't need to watch the whole video (though I highly encourage it). Basically, Lisa and a
+team of programmers write an artificial intelligence (Conrad) to predict the outcomes of
+social media posts.</p><p>Thusly inspired, we made a Chrome extension which predicts the reactions a post on Facebook
+would get.</p></section>
+<section><h2>Step 1: Data Collection</h2><p>Fortunately for us, <a href="https://github.com/minimaxir">@minimaxir</a> on Github had a relatively large
+dataset of public posts from large Facebook pages, and their reactions. The dataset is linked
+<a href="https://github.com/minimaxir/interactive-facebook-reactions">here</a>. I only found out later that
+he also did our exact same project, but whatever.</p><p>Anyway, that was data collection.</p></section>
+<section><h2>Step 2: Data Preprocessing</h2><p>We chose only to look at posts with text content (so we ignored shared links, photos, videos, etc.)
+We also only considered posts less than 1000 characters long, and which had more than 11 non-like
+reacts.</p></section>
+<section><h2>Step 3: Modelling</h2><p>We spent most of Saturday doing preprocessing, and then eventually realized we still had to actually
+build a model. We started off by trying a random forest regression with bag of words. Results were not
+great.</p><p>After tweaking the hyperparameters around a bit, it became clear results weren't improving.</p><p>That's when we took the leap to using <code>gensim</code> and <code>doc2vec</code> to generate sentence embeddings.
+This meant that, instead of just using word frequency, we used a much more complex model to encode
+posts which took into account word order.</p><p>This yielded much better results, especially after I also normalized the target output.</p></section>
+<section><h2>Step 4: Building the Extension</h2><p>At this point, it was the morning of demos, and while we had a halfway decent model, the chrome
+extension was non-existent.</p><p>So came the mad scramble, in which I was literally writing code as we walked to the IM building.
+I wrote a small Flask API backend, which the Chrome extension was supposed to call.</p><p>Initially, I didn't want to deal with the Chrome messaging protocol, so I tried to make the call
+directly from the content script (which ran as Javascript code on the client with no extra
+permissions).</p><p>We ran into a roadblock, where cross origin requests were forbidden. I tried to overcome this
+by editing my <code>/etc/hosts</code> file to redirect some ancillary Facebook domain to <code>localhost</code>. This
+<em>almost</em> worked, except Facebook also expected https-only requests, so I was stuck with having
+to do the <em>correct</em> thing of using Chrome's messaging protocol.</p><p>By this point, I'm writing the code while we are standing at our demo table.</p><p>It turned out to actually be super easy to use the messaging protocol, but that didn't stop me
+from screwing up 11 times before I finally got everything working.</p><p></p><figure><img src="https://media.giphy.com/media/l2JejtUtX0ImRvLnq/giphy.gif" alt="Literally Me Celebrating"></figure><p></p><p>This was me when I finally got the Chrome extension to work.</p></section>
+<section><h2>Wrap-Up</h2><p>Unfortunately, I have no screenshots of the actual app working, <em>but</em> if you want to run the janky
+code for yourself, it's all open source on <a href="https://github.com/naitian/conrad">Github</a>.</p><p>I learned a lot through this hackathon. It was the first hackathon project that I did with a
+heavy data science workflow.</p><p>This hackathon was a blast, and <a href="http://davidzhao.me">David</a> and <a href="https://github.com/reneeli411">Renee</a>
+were awesome teammates.</p></section>
+</article>
+
+        </div>
+    </body>
+</html>

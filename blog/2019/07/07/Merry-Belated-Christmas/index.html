@@ -1,0 +1,118 @@
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+        <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/styles/a11y-dark.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.1.0/highlight.min.js"></script>
+        <link href="/css/base.css" rel="stylesheet">
+
+        <title>Merry Belated Christmas</title>
+    <link href="/css/blog.css" rel="stylesheet"></head>
+    <body>
+        <div class="content">
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/blog">Blog</a></li>
+            </ul> 
+        </nav>
+        
+<article>
+    <h1 class="title">Merry Belated Christmas</h1>
+    <section><h2>Christmas in July</h2><p>It's Independence Day when I'm writing this, which seems like a good time to
+write about my winter holiday cards from last year. In a previous blog post, I
+wrote about a small project I made with my
+<a href="https://naitian.holiday/isyp">naitian.holiday</a> domain name.  However, that
+wasn't the original purpose for the domain. The first use for the domain was
+digital holiday cards for some of my friends.</p></section>
+<section><h2>Table of Contents</h2><ul>
+<li><a href="#planning">Planning</a></li>
+<li><a href="#implementation">Implementation</a>
+<ul>
+<li><a href="#infrastructure">Infrastructure</a></li>
+<li><a href="#design">Design</a></li>
+<li><a href="#build-process">Build Process</a></li>
+<li><a href="#authentication">Authentication</a></li>
+<li><a href="#email-notifications">Email Notifications</a></li>
+</ul>
+</li>
+</ul></section>
+<section><h2>Planning</h2><blockquote>
+<p>AKA all the things I wanted to do but didn't.</p>
+</blockquote><p>There were a couple of clear requirements that were non-negotiable:</p><ol>
+<li>There had to be at least some form of authentication (so not everyone can see
+everyone else's card)</li>
+<li>Emails would be sent out notifying people of their cards.</li>
+<li>Cards need to be personalized with:
+<ul>
+<li>Greeting</li>
+<li>Name (duh)</li>
+<li>Message</li>
+</ul>
+</li>
+</ol><p>Later, I also decided a couple more requirements, both for fun and for
+education:</p><ol>
+<li>Everything would be compiled and hosted statically on S3.</li>
+<li>In the theme of using AWS for everything, I'd also send email notifications
+with Amazon's Simple Email Service (SES) and handle domain name /
+certificates with Route53.</li>
+<li>Each person would only see pretty URLs (e.g. naitian.holiday/nate)</li>
+<li>Cards would include these draggable Polaroid-style pictures from my Google
+Photos.</li>
+</ol></section>
+<section><h2>Implementation</h2><blockquote>
+<p>AKA what I ended up doing</p>
+</blockquote><h3>Infrastructure</h3><p>I will be totally honest with you and say I don't actually remember all the
+details to the infrastructure on AWS, but it wasn't super complex. The gist is:</p><ul>
+<li>All the static files are hosted with S3's static website hosting.</li>
+<li>I used Cloudfront as the CDN for the S3 files.</li>
+<li>I have a hosted zone for <code>naitian.holiday</code> in Route53 which points to the
+Cloudfront endpoint (which in turn points to the S3 bucket).</li>
+<li>Photos were hosted on Google Photos</li>
+</ul><h3>Design</h3><p>Aesthetically, I decided to go for a festive red with a subtle gradient. I chose
+a classy serif typeface and drew this freaking amazing <del>Christmas</del>
+non-denominational holiday tree.</p><h3>Build Process</h3><p>Each card was defined as a yaml file. I wrote a Python script to read these yaml
+files and used markdown to render them into HTML files. At the same time, I
+generated the SES email template data for bulk sending the notification emails.</p><p>I also had a Makefile which would run the rendering script, compile the SCSS
+into CSS, minify CSS and JS, and push everything to S3. There were also Make
+steps which would send a test email and send out the actual emails.</p><h3>Authentication</h3><p>One of the most interesting parts of this whole exercise was figuring out a good
+authentication method. I definitely did not want to make anyone sign in or
+create any accounts (partly also because I wanted this to be a totally static
+site).</p><p>I ended up compromising with a "good-enough" authentication plan, which I had to
+alter a little bit to also keep the pretty URLs. Here's how it ended up working:</p><ol>
+<li>When a card is rendered, it is actually placed in a directory named after its
+SHA256 hash.</li>
+<li>This hash is used as an auth token in the link.</li>
+<li>Not only is an HTML file generated with the card's content, another HTML page
+is generated with Javascript for authentication and a hidden input field
+containing a SHA256 hash of the token.</li>
+<li>When a user navigates to the site (e.g. naitian.holidy/nate), they are
+actually navigating to the page with only the auth code.
+<ul>
+<li>On the client side, the token (if it's present) is hashed and compared
+to the correct token.</li>
+<li>If incorrect, the user is rejected.</li>
+</ul>
+</li>
+<li>If correct, there is an XHR request that fetches the actual HTML and displays
+it.</li>
+</ol><p>This means the user would have a hard time even realizing that any
+authentication had occurred in the first place.</p><p>To recap, for each card, the path structure looked like this:</p><pre><code class="hljs language-axapta">naitian.holiday/&#x3C;SHA256>/<span class="hljs-keyword">index</span>.html   &#x3C;- <span class="hljs-keyword">this</span> <span class="hljs-keyword">is</span> the HTML <span class="hljs-keyword">for</span> the card
+naitian.holiday/nate/<span class="hljs-keyword">index</span>.html       &#x3C;- <span class="hljs-keyword">this</span> <span class="hljs-keyword">is</span> the HTML <span class="hljs-keyword">for</span> authentication
+</code></pre><p>Of course, I also added a <code>robots.txt</code> which disallowed any crawling. This makes
+it pretty difficult to find the (very much public) SHA256 paths of any of the
+cards.</p><p>So, while not airtight, this worked well enough to prevent people from just
+typing in names of other people to see their cards.</p><p>I also stored the tokens in local storage, so after the first visit, the token
+isn't actually required.</p><p>Nifty.</p><h3>Email Notifications</h3><p>Emails were surprisingly straightforward to set up. I used the Simple Email
+Service from Amazon. Initially, I planned to do a lot more CSS for the HTML
+emails, but ultimately decided against it for two reasons: it would have been
+more work to implement and try to test, and I felt like it would feel more
+personal if it was more "raw".</p><p>I had a <code>make</code> rule which would send just test emails to myself and a different
+rule to send out the emails for real.</p></section>
+</article>
+
+        </div>
+    </body>
+</html>
