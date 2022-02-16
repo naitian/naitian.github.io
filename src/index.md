@@ -35,12 +35,13 @@ document.querySelector(".verbosity").addEventListener("change", (e) => {
 })
 </script>
 
-<span class="l1">I'm a senior at the University of Michigan (<span style="color:
-#00274C">go blue!</span>)</span><span class="l2">, where I study computer
-science, data science and linguistics.</span> Right now, I'm doing research with
-[David Jurgens](https://blablablab.si.umich.edu) in the UM School of Information
-and [Tanu Mitra](https://faculty.washington.edu/tmitra/) in the UW Information
-School (REU). In the past, I've also worked on social dialogue agents with [Jon
+<span class="l1">I'm a recent alum of the University of Michigan (<span
+style="color: #00274C">go blue!</span>)</span><span class="l2">, where I
+studied computer science, data science and linguistics.</span> Right now, I'm
+doing research with [David Jurgens](https://blablablab.si.umich.edu) in the UM
+School of Information. In the past, I've also worked on social computing with
+[Tanu Mitra](https://faculty.washington.edu/tmitra/) in the UW Information
+School and on social dialogue agents with [Jon
 May](https://www.isi.edu/~jonmay/) at USC ISI.
 
 I'm interested in some mixture of computational social science, natural language
@@ -55,6 +56,16 @@ journalism, data visualization and crossword puzzles.
 </p>
 </figcaption>
 </figure>
+
+
+## Updates
+
+- Sometime between Dec. 2021 and Jan. 2022: Graduated from the University of
+  Michigan (wow!)
+- Dec. 22, 2021: Received an Honorable Mention for the CRA Outstanding
+  Undergraduate Researcher Award (neat!)
+- Nov. 26, 2021: Launched the [Spalling Bie](https://naitian.org/spalling-bie/)
+  (cool!)
 
 ## Publications
 

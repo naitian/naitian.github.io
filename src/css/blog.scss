@@ -4,6 +4,7 @@ h1.title {
 
 .content {
     max-width: 800px;
+    counter-reset: sidenote-counter;
 }
 
 h1 {
