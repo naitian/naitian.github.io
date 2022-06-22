@@ -60,6 +60,7 @@ journalism, data visualization and crossword puzzles.
 
 ## Updates
 
+- Mar. 5, 2022: Ran my first half marathon race (whoa!)
 - Sometime between Dec. 2021 and Jan. 2022: Graduated from the University of
   Michigan (wow!)
 - Dec. 22, 2021: Received an Honorable Mention for the CRA Outstanding
