@@ -35,18 +35,21 @@ document.querySelector(".verbosity").addEventListener("change", (e) => {
 })
 </script>
 
-<span class="l1">I'm a recent alum of the University of Michigan (<span
-style="color: #00274C">go blue!</span>)</span><span class="l2">, where I
-studied computer science, data science and linguistics.</span> Right now, I'm
-doing research with [David Jurgens](https://blablablab.si.umich.edu) in the UM
-School of Information. In the past, I've also worked on social computing with
-[Tanu Mitra](https://faculty.washington.edu/tmitra/) in the UW Information
-School and on social dialogue agents with [Jon
-May](https://www.isi.edu/~jonmay/) at USC ISI.
+I'm a PhD student at the UC Berkeley School of Information, where I'm advised
+by David Bamman.
 
 I'm interested in some mixture of computational social science, natural language
 processing and digital humanities. I also care a lot about the news, data
 journalism, data visualization and crossword puzzles.
+
+<span class="l1">I'm a recent alum of the University of Michigan (<span
+style="color: #00274C">go blue!</span>)</span><span class="l2">, where I
+studied computer science, data science and linguistics.</span> There, I
+worked with [David Jurgens](https://blablablab.si.umich.edu) in the UM
+School of Information. In the past, I've worked on social computing with
+[Tanu Mitra](https://faculty.washington.edu/tmitra/) in the UW Information
+School and on social dialogue agents with [Jon
+May](https://www.isi.edu/~jonmay/) at USC ISI.
 
 <figure class="profilepic">
 <img src="assets/selfie.png" alt="A collection of photos of my face."/>
@@ -60,6 +63,7 @@ journalism, data visualization and crossword puzzles.
 
 ## Updates
 
+- Aug. 2022: I started my PhD at UC Berkeley (omg!)
 - Mar. 5, 2022: Ran my first half marathon race (whoa!)
 - Sometime between Dec. 2021 and Jan. 2022: Graduated from the University of
   Michigan (wow!)
