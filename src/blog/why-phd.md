@@ -2,6 +2,7 @@
 title: Why do I want to do a PhD?
 author: Naitian Zhou
 description: (it's the luxurious lifestyle and high salary)
+date: 2022-06-15
 ---
 
 ## 

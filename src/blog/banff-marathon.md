@@ -2,6 +2,7 @@
 title: The 600 Mile Marathon
 author: Naitian Zhou
 description: Why I decided to run a marathon, and what I learned.
+date: 2022-06-23
 ---
 ## Starting at the finish line
 

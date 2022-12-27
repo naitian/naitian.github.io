@@ -2,6 +2,7 @@
 title: So you want to build a high tech college newsroom
 author: Naitian Zhou
 description: Some lessons learned at The Michigan Daily.
+date: 2022-02-16
 ---
 
 ##
