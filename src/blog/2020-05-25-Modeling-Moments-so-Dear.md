@@ -4,6 +4,7 @@ author: Naitian Zhou
 description: You could call this a moment generating function, but you really shouldn't
 permalink: /blog/2020/05/25/Modeling-Moments-so-Dear/
 tags:
+  - post
   - stats
 ---
 
