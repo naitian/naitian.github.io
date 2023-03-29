@@ -65,6 +65,7 @@ May](https://www.isi.edu/~jonmay/) at USC ISI.
 
 - Mar. 2022: The NSF awarded me the Graduate Research Fellowship (wild!)
 - Aug. 2022: I started my PhD at UC Berkeley (omg!)
+- Jun. 2022: I ran my [first marathon](https://naitian.org/blog/banff-marathon/) (oof!)
 - Mar. 5, 2022: Ran my first half marathon race (whoa!)
 - Sometime between Dec. 2021 and Jan. 2022: Graduated from the University of
   Michigan (wow!)
