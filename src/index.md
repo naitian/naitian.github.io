@@ -36,20 +36,17 @@ document.querySelector(".verbosity").addEventListener("change", (e) => {
 </script>
 
 I'm a PhD student at the UC Berkeley School of Information, where I'm advised
-by David Bamman.
+by David Bamman and supported by the NSF graduate research fellowship.
 
 I'm interested in some mixture of computational social science, natural language
-processing and digital humanities. I also care a lot about the news, data
+processing and cultural analytics. I also care a lot about the news, data
 journalism, data visualization and crossword puzzles.
 
-<span class="l1">I'm a recent alum of the University of Michigan (<span
-style="color: #00274C">go blue!</span>)</span><span class="l2">, where I
-studied computer science, data science and linguistics.</span> There, I
-worked with [David Jurgens](https://blablablab.si.umich.edu) in the UM
-School of Information. In the past, I've worked on social computing with
-[Tanu Mitra](https://faculty.washington.edu/tmitra/) in the UW Information
-School and on social dialogue agents with [Jon
-May](https://www.isi.edu/~jonmay/) at USC ISI.
+If you are interested in doing research or grad school, I am always happy to
+chat about my experiences. If you are a Berkeley undergrad interested in doing
+cultural analytics research, you should apply for a [UROP
+opportunity](https://research.berkeley.edu/urap/application/) with my advisor,
+David Bamman.
 
 <figure class="profilepic">
 <img src="assets/selfie.png" alt="A collection of photos of my face."/>
@@ -60,6 +57,14 @@ May](https://www.isi.edu/~jonmay/) at USC ISI.
 </figcaption>
 </figure>
 
+<!-- <span class="l1">I'm a recent alum of the University of Michigan (<span -->
+<!-- style="color: #00274C">go blue!</span>)</span><span class="l2">, where I -->
+<!-- studied computer science, data science and linguistics.</span> There, I -->
+<!-- worked with [David Jurgens](https://blablablab.si.umich.edu) in the UM -->
+<!-- School of Information. In the past, I've worked on social computing with -->
+<!-- [Tanu Mitra](https://faculty.washington.edu/tmitra/) in the UW Information -->
+<!-- School and on social dialogue agents with [Jon -->
+<!-- May](https://www.isi.edu/~jonmay/) at USC ISI. -->
 
 ## Updates
 
