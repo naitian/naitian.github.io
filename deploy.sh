@@ -1,3 +1,10 @@
+# first make sure that we've provided a directory to deploy
+if [ -z "$1" ]
+  then
+    echo "No argument supplied"
+    exit 1
+fi
+
 rm -rf $1
 git worktree add --detach $1
 (cd $1; git checkout --orphan gh-pages)
