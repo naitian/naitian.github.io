@@ -17,7 +17,7 @@ const directive = require("remark-directive");
 const tufte = require("remark-tufte");
 
 
-const listify = function(arr) {
+const listify = function (arr) {
   // ['a'] => 'a'
   // ['a', 'b'] => 'a and b'
   // ['a', 'b', 'c'] => 'a, b and c'
@@ -26,13 +26,13 @@ const listify = function(arr) {
   return `${arr.slice(0, -1).join(", ")} and ${arr[arr.length - 1]}`;
 };
 
-const date = function(d) {
+const date = function (d) {
   return d.toLocaleDateString(undefined, {
     year: 'numeric', month: 'long', day: 'numeric'
   });
 }
 
-module.exports = function(eleventyConfig) {
+module.exports = function (eleventyConfig) {
   // use remark to process markdown
   //
   // this allows use to use all of the remark plugins, including tufte-css
@@ -90,7 +90,7 @@ module.exports = function(eleventyConfig) {
   });
 
   // publication shortcode
-  eleventyConfig.addShortcode("publication", function(ref) {
+  eleventyConfig.addShortcode("publication", function (ref) {
     return outdent`
     <div class="publication entry">
     <span class="entry__title">${ref.parsed.title}</span> <br>
@@ -99,7 +99,7 @@ module.exports = function(eleventyConfig) {
         (d) => `<span class="entry__author">${d.given} ${d.family}</span>`
       )
     )}</span> <br>
-    <span class="entry__venue">${ref.parsed["container-title"]}</span><br>
+    ${ref.parsed["container-title"] ? `<span class="entry__venue">${ref.parsed["container-title"]}</span><br>` : ""}
     <span class="entry__description">${ref.description}</span><br>
     <a href="${ref.website}">[Website]</a> <a href="${ref.pdf}">[PDF]</a>
     </div>
@@ -107,7 +107,7 @@ module.exports = function(eleventyConfig) {
   });
 
   // project shortcode
-  eleventyConfig.addShortcode("project", function(project) {
+  eleventyConfig.addShortcode("project", function (project) {
     return outdent`
     <div class="entry">
     <span class="entry__title">${project.title}</span> <br>
@@ -118,7 +118,7 @@ module.exports = function(eleventyConfig) {
   });
 
   // blog shortcode
-  eleventyConfig.addShortcode("blog", function(blog) {
+  eleventyConfig.addShortcode("blog", function (blog) {
     return outdent`
     <a href="${blog.url}" class="entry"><div>
     <span class="entry__title">${blog.data.title}</span> <br>
