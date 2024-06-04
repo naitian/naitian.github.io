@@ -1,6 +1,7 @@
 const pluginSass = require("eleventy-plugin-sass");
 const eleventyRemark = require("@fec/eleventy-plugin-remark");
 const eleventyHelmetPlugin = require("eleventy-plugin-helmet");
+const pluginRss = require("@11ty/eleventy-plugin-rss");
 const outdent = require("outdent");
 
 const remark = require("remark");
@@ -82,6 +83,9 @@ module.exports = function (eleventyConfig) {
 
   // helmet
   eleventyConfig.addPlugin(eleventyHelmetPlugin);
+
+  // RSS
+  eleventyConfig.addPlugin(pluginRss)
 
   // scss preprocessing
   eleventyConfig.addWatchTarget("src/css/*");
