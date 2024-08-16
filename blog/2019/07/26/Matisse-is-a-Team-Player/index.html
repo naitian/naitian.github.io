@@ -27,7 +27,7 @@
             <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="/blog">Blog</a></li>
-                <li><a href="/feed.xml">RSS</a></li>
+                <li><a href="/feed.xml"><span class="small-caps">RSS</span></a></li>
             </ul> 
         </nav>
         
@@ -38,11 +38,11 @@
     <figcaption class="img-caption"></figcaption>
 </figure>
 <section><h2></h2><blockquote>
-<p>Henri Matisse works well with others in the courtyard of the Kabbalist, and in
-the morning, Leonardo's shadow got to give the people what they want.</p>
-</blockquote><p>Two very influential artists, to be sure, but what was Matisse doing
-collaborating with Kabbalists, and what exactly did the people want from
-Leonardo's shadow?</p></section>
+<p>Henri Matisse works well with oth­ers in the court­yard of the Kabbalist, and in
+the morn­ing, Leonardo’s shadow got to give the peo­ple what they want.</p>
+</blockquote><p>Two very in­flu­en­tial artists, to be sure, but what was Matisse do­ing
+col­lab­o­rat­ing with Kabbalists, and what ex­actly did the peo­ple want from
+Leonar­do’s shadow?</p></section>
 <section><h2>Table of Contents</h2><ul>
 <li><a href="#some-context">Some Context</a></li>
 <li><a href="#the-project">The Project</a>
@@ -55,36 +55,36 @@ Leonardo's shadow?</p></section>
 </ul>
 </li>
 </ul></section>
-<section><h2>Some Context</h2><p>In mid-June, Randall Munroe, the genius behind <a href="http://xkcd.com">xkcd</a> and the
-author of
+<section><h2>Some Context</h2><p>In mid-June, Randall Munroe, the ge­nius be­hind <a href="http://xkcd.com">xkcd</a> and the
+au­thor of
 <a href="https://www.amazon.com/Thing-Explainer-Complicated-Stuff-Simple/dp/0544668251/">quite</a>
 a
 <a href="https://www.amazon.com/What-If-Scientific-Hypothetical-Questions-ebook/dp/B00IYUYF4A">few</a>
 <a href="https://www.amazon.com/How-Absurd-Scientific-Real-World-Problems/dp/0525537090">books</a>,
-announced he was going on a book tour to promote his latest book: <em>How To:
-Absurd Scientific Advice for Common Real-World Problems</em></p><p>As part of the announcement, he introduced an interesting challenge:</p><blockquote>
-<p>Write the best story using nothing but book covers.</p>
-</blockquote><p>The winner of the challenge would be rewarded by a visit from Munroe as part of
-the tour. Even though Ann Arbor was already in the itinerary, I couldn't help
-but think about this challenge... and how I could use some of my linguistics
-knowledge to my advantage.</p></section>
-<section><h2>The Project</h2><p>I decided I would try to hack this challenge by acquiring a dataset of book
-titles, and having a computer generate these stories for me.</p><p>I found a <a href="https://github.com/uchidalab/book-dataset/">list</a> of over 200,000
-books listed on Amazon, and a couple of Jupyter notebooks and Python packages
-later, we were off to the races.</p><h3>Grammar School: Constituency</h3><p>The key concept behind this project was something I learned in my introduction
-to linguistics class last fall: constituency trees. The basic idea is that each
-sentence can be represented as a combination of words and phrases
-(constituents).</p><p>For example, a sentence is, in its base form, a noun phrase and a verb phrase:</p><p><code>S -> NP VP</code></p><p>And a noun phrase might be a noun, with optional adjectives and determiners, and
-maybe a prepositional phrase.</p><p><code>NP -> [DET] [ADJ] N [PP]</code></p><p>And a prepositional phrase, in turn, might be a preposition followed by a noun
-phrase.</p><p><code>PP -> [P] [NP]</code></p><p>And in this way, we can construct a very expressive and <em>productive</em> grammar for
-the English language. Productivity here means that, with even a limited
-vocabulary, we can form many distinct sentences and thoughts.</p><p>So the main idea was we would label each book title as a noun phrase, verb phrase,
-adjective phrase, etc. Then, we could use this grammar to compose sentences.</p><h3>The Nitty Gritty</h3><p>Although there were over 200,000 books in the dataset, I couldn't use all of
-them. In fact, out of 32 categories, I used only 10. Books with categories such
-as cookbooks, calendars, etc were excluded because those titles were generally
-not very useful.</p><p>The categories I ended up using were:</p><ul>
+announced he was go­ing on a book tour to pro­mote his lat­est book: <em>How To:
+Absurd Scientific Advice for Common Real-World Problems</em></p><p>As part of the an­nounce­ment, he in­tro­duced an in­ter­est­ing chal­lenge:</p><blockquote>
+<p>Write the best story us­ing noth­ing but book cov­ers.</p>
+</blockquote><p>The win­ner of the chal­lenge would be re­warded by a visit from Munroe as part of
+the tour. Even though Ann Arbor was al­ready in the itin­er­ary, I could­n’t help
+but think about this chal­lenge&hellip; and how I could use some of my lin­guis­tics
+knowl­edge to my ad­van­tage.</p></section>
+<section><h2>The Project</h2><p>I de­cided I would try to hack this chal­lenge by ac­quir­ing a dataset of book
+ti­tles, and hav­ing a com­puter gen­er­ate these sto­ries for me.</p><p>I found a <a href="https://github.com/uchidalab/book-dataset/">list</a> of over 200,000
+books listed on Amazon, and a cou­ple of Jupyter note­books and Python pack­ages
+later, we were off to the races.</p><h3>Grammar School: Constituency</h3><p>The key con­cept be­hind this pro­ject was some­thing I learned in my in­tro­duc­tion
+to lin­guis­tics class last fall: con­stituency trees. The ba­sic idea is that each
+sen­tence can be rep­re­sented as a com­bi­na­tion of words and phrases
+(con­stituents).</p><p>For ex­am­ple, a sen­tence is, in its base form, a noun phrase and a verb phrase:</p><p><code>S -> NP VP</code></p><p>And a noun phrase might be a noun, with op­tional ad­jec­tives and de­ter­min­ers, and
+maybe a prepo­si­tional phrase.</p><p><code>NP -> [DET] [ADJ] N [PP]</code></p><p>And a prepo­si­tional phrase, in turn, might be a prepo­si­tion fol­lowed by a noun
+phrase.</p><p><code>PP -> [P] [NP]</code></p><p>And in this way, we can con­struct a very ex­pres­sive and <em>pro­duc­tive</em> gram­mar for
+the English lan­guage. Productivity here means that, with even a lim­ited
+vo­cab­u­lary, we can form many dis­tinct sen­tences and thoughts.</p><p>So the main idea was we would la­bel each book ti­tle as a noun phrase, verb phrase,
+ad­jec­tive phrase, etc. Then, we could use this gram­mar to com­pose sen­tences.</p><h3>The Nitty Gritty</h3><p>Although there were over 200,000 books in the dataset, I could­n’t use all of
+them. In fact, out of 32 cat­e­gories, I used only 10. Books with cat­e­gories such
+as cook­books, cal­en­dars, etc were ex­cluded be­cause those ti­tles were gen­er­ally
+not very use­ful.</p><p>The cat­e­gories I ended up us­ing were:</p><ul>
 <li>Biographies &#x26; Memoirs</li>
-<li>Children's Books</li>
+<li>Children’s Books</li>
 <li>Engineering &#x26; Transportation</li>
 <li>History</li>
 <li>Humor &#x26; Entertainment</li>
@@ -93,36 +93,36 @@ not very useful.</p><p>The categories I ended up using were:</p><ul>
 <li>Science Fiction &#x26; Fantasy</li>
 <li>Self-Help</li>
 <li>Teen &#x26; Young Adult</li>
-</ul><p>I also did some preprocessing on the titles before parsing the constituents.</p><pre><code class="hljs language-py">cleaned_titles = books.title.<span class="hljs-built_in">str</span>.lower()  <span class="hljs-comment"># Lowercase</span>
+</ul><p>I also did some pre­pro­cess­ing on the ti­tles be­fore pars­ing the con­stituents.</p><pre><code class="hljs language-py">cleaned_titles = books.title.<span class="hljs-built_in">str</span>.lower()  <span class="hljs-comment"># Lowercase</span>
 cleaned_titles = cleaned_titles.<span class="hljs-built_in">str</span>.replace(<span class="hljs-string">r"\(.+\)"</span>, <span class="hljs-string">""</span>)  <span class="hljs-comment"># Remove everything in parentheses</span>
 cleaned_titles = cleaned_titles.<span class="hljs-built_in">str</span>.replace(<span class="hljs-string">r"\[.+\]"</span>, <span class="hljs-string">""</span>)  <span class="hljs-comment"># Remove everything in brackets</span>
 cleaned_titles = cleaned_titles.<span class="hljs-built_in">str</span>.replace(<span class="hljs-string">r"(volume|vol\.) (\d+|\w+)"</span>, <span class="hljs-string">""</span>)  <span class="hljs-comment"># Remove volume numbers</span>
 cleaned_titles = cleaned_titles.<span class="hljs-built_in">str</span>.replace(<span class="hljs-string">r"issue (\d+|\w+)"</span>, <span class="hljs-string">""</span>)  <span class="hljs-comment"># Remove issue numbers</span>
 cleaned_titles = cleaned_titles.<span class="hljs-built_in">str</span>.strip(<span class="hljs-string">'-, '</span>)  <span class="hljs-comment"># Remove dashes</span>
 cleaned_titles = cleaned_titles.apply(<span class="hljs-keyword">lambda</span> x: x.split(<span class="hljs-string">':'</span>)[<span class="hljs-number">0</span>])  <span class="hljs-comment"># Only keep first part of title (no subtitles)</span>
-</code></pre><p>The last part -- getting rid of subtitles -- sometimes helped and sometimes did
+</code></pre><p>The last part&thinsp;&mdash;&thinsp;get­ting rid of sub­ti­tles&thinsp;&mdash;&thinsp;some­times helped and some­times did
 not.</p><h3>Parsing</h3><p>I used <a href="https://pypi.org/project/benepar/">benepar</a>, which is a state of the art
-constituency parser that fits nicely into NLTK. I found that it provided decent
-results. One issue that I ran into was handling more granular details such as
-subject verb plurality alignment. In those cases, I wanted to know what the noun
-was in the noun phrase, etc.</p><p>For this, I used a different grammar model: dependency grammar. In dependency
-grammars, instead constituents, each word is dependent on exactly one other word
-in the sentence. This image from Wikipedia is pretty good at showing the
-difference between the two.</p><p></p><figure><img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Wearetryingtounderstandthedifference_%282%29.jpg" alt="Dependency vs Constituency"></figure><p></p><p>I use the root of each dependency tree as the "active noun" or "active verb" in
-the phrase, and their parts of speech include markers for plurality, properness,
-verb tense, etc.</p><h3>Creating Sentences</h3><p>Afterwards, it was just a process of returning a random sample for each
-constituent. I wanted the sentence generation to be completely automated, but I
-ended up adopting a more hybrid process where I would query for noun phrases,
-for example, until I found one I thought was interesting, then move on to a verb
-phrase.</p><h3>Gallery</h3><p>Here are a couple more sentences I put together with the help of computers. Stay
-tuned for an online interactive version in coming days that will let you
-construct your own book cover stories.</p><p></p><figure><img src="https://imgur.com/w7eq9RN.jpg" alt=""></figure><p></p><blockquote>
-<p>Radioactive horses and ponies thank you for being a good friend, but not the
-hippopotamus.</p>
+con­stituency parser that fits nicely into <span class="small-caps">NLTK</span>. I found that it pro­vided de­cent
+re­sults. One is­sue that I ran into was han­dling more gran­u­lar de­tails such as
+sub­ject verb plu­ral­ity align­ment. In those cases, I wanted to know what the noun
+was in the noun phrase, etc.</p><p>For this, I used a dif­fer­ent gram­mar model: de­pen­dency gram­mar. In de­pen­dency
+gram­mars, in­stead con­stituents, each word is de­pen­dent on ex­actly one other word
+in the sen­tence. This im­age from Wikipedia is pretty good at show­ing the
+dif­fer­ence be­tween the two.</p><p></p><figure><img src="https://upload.wikimedia.org/wikipedia/commons/0/0d/Wearetryingtounderstandthedifference_%282%29.jpg" alt="Dependency vs Constituency"></figure><p></p><p>I use the root of each de­pen­dency tree as the<span class="push-double"></span> <span class="pull-double">“</span>active noun” or<span class="push-double"></span> <span class="pull-double">“</span>active verb” in
+the phrase, and their parts of speech in­clude mark­ers for plu­ral­ity, proper­ness,
+verb tense, etc.</p><h3>Creating Sentences</h3><p>Afterwards, it was just a process of re­turn­ing a ran­dom sam­ple for each
+con­stituent. I wanted the sen­tence gen­er­a­tion to be com­pletely au­to­mated, but I
+ended up adopt­ing a more hy­brid process where I would query for noun phrases,
+for ex­am­ple, un­til I found one I thought was in­ter­est­ing, then move on to a verb
+phrase.</p><h3>Gallery</h3><p>Here are a cou­ple more sen­tences I put to­gether with the help of com­put­ers. Stay
+tuned for an on­line in­ter­ac­tive ver­sion in com­ing days that will let you
+con­struct your own book cover sto­ries.</p><p></p><figure><img src="https://imgur.com/w7eq9RN.jpg" alt=""></figure><p></p><blockquote>
+<p>Radioactive horses and ponies thank you for be­ing a good friend, but not the
+hip­popota­mus.</p>
 </blockquote><p></p><figure><img src="https://imgur.com/PXWmSqe.jpg" alt=""></figure><p></p><blockquote>
-<p>19 varieties of gazelle found apple, apples everywhere!</p>
+<p>19 va­ri­eties of gazelle found ap­ple, ap­ples every­where!</p>
 </blockquote><p></p><figure><img src="https://imgur.com/eLuT35e.jpg" alt=""></figure><p></p><blockquote>
-<p>The Russian Kremlin desperately seeking exclusivity around the world with
+<p>The Russian Kremlin des­per­ately seek­ing ex­clu­siv­ity around the world with
 Justin Bieber.</p>
 </blockquote></section>
 </article>

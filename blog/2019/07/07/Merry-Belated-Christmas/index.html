@@ -27,18 +27,18 @@
             <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="/blog">Blog</a></li>
-                <li><a href="/feed.xml">RSS</a></li>
+                <li><a href="/feed.xml"><span class="small-caps">RSS</span></a></li>
             </ul> 
         </nav>
         
 <article>
     <h1 class="title">Merry Belated Christmas</h1>
-    <section><h2>Christmas in July</h2><p>It's Independence Day when I'm writing this, which seems like a good time to
-write about my winter holiday cards from last year. In a previous blog post, I
-wrote about a small project I made with my
-<a href="https://naitian.holiday/isyp">naitian.holiday</a> domain name.  However, that
-wasn't the original purpose for the domain. The first use for the domain was
-digital holiday cards for some of my friends.</p></section>
+    <section><h2>Christmas in July</h2><p>It’s Independence Day when I’m writ­ing this, which seems like a good time to
+write about my win­ter hol­i­day cards from last year. In a pre­vi­ous blog post, I
+wrote about a small pro­ject I made with my
+<a href="https://naitian.holiday/isyp">nait­ian.hol­i­day</a> do­main name.  However, that
+was­n’t the orig­i­nal pur­pose for the do­main. The first use for the do­main was
+dig­i­tal hol­i­day cards for some of my friends.</p></section>
 <section><h2>Table of Contents</h2><ul>
 <li><a href="#planning">Planning</a></li>
 <li><a href="#implementation">Implementation</a>
@@ -52,76 +52,76 @@ digital holiday cards for some of my friends.</p></section>
 </li>
 </ul></section>
 <section><h2>Planning</h2><blockquote>
-<p>AKA all the things I wanted to do but didn't.</p>
-</blockquote><p>There were a couple of clear requirements that were non-negotiable:</p><ol>
-<li>There had to be at least some form of authentication (so not everyone can see
-everyone else's card)</li>
-<li>Emails would be sent out notifying people of their cards.</li>
-<li>Cards need to be personalized with:
+<p><span class="small-caps">AKA</span> all the things I wanted to do but did­n’t.</p>
+</blockquote><p>There were a cou­ple of clear re­quire­ments that were non-ne­go­tiable:</p><ol>
+<li>There had to be at least some form of au­then­ti­ca­tion (so not every­one can see
+every­one else’s card)</li>
+<li>Emails would be sent out no­ti­fy­ing peo­ple of their cards.</li>
+<li>Cards need to be per­son­al­ized with:
 <ul>
 <li>Greeting</li>
 <li>Name (duh)</li>
 <li>Message</li>
 </ul>
 </li>
-</ol><p>Later, I also decided a couple more requirements, both for fun and for
-education:</p><ol>
-<li>Everything would be compiled and hosted statically on S3.</li>
-<li>In the theme of using AWS for everything, I'd also send email notifications
-with Amazon's Simple Email Service (SES) and handle domain name /
+</ol><p>Later, I also de­cided a cou­ple more re­quire­ments, both for fun and for
+ed­u­ca­tion:</p><ol>
+<li>Everything would be com­piled and hosted sta­t­i­cally on <span class="small-caps">S3</span>.</li>
+<li>In the theme of us­ing <span class="small-caps">AWS</span> for every­thing, I’d also send email no­ti­fi­ca­tions
+with Amazon’s Simple Email Service (<span class="small-caps">SES</span>) and han­dle do­main name /
 certificates with Route53.</li>
-<li>Each person would only see pretty URLs (e.g. naitian.holiday/nate)</li>
-<li>Cards would include these draggable Polaroid-style pictures from my Google
+<li>Each per­son would only see pretty URLs (e.g. nait­ian.hol­i­day/​nate)</li>
+<li>Cards would in­clude these drag­gable Polaroid-style pic­tures from my Google
 Photos.</li>
 </ol></section>
 <section><h2>Implementation</h2><blockquote>
-<p>AKA what I ended up doing</p>
-</blockquote><h3>Infrastructure</h3><p>I will be totally honest with you and say I don't actually remember all the
-details to the infrastructure on AWS, but it wasn't super complex. The gist is:</p><ul>
-<li>All the static files are hosted with S3's static website hosting.</li>
-<li>I used Cloudfront as the CDN for the S3 files.</li>
+<p><span class="small-caps">AKA</span> what I ended up do­ing</p>
+</blockquote><h3>Infrastructure</h3><p>I will be to­tally hon­est with you and say I don’t ac­tu­ally re­mem­ber all the
+de­tails to the in­fra­struc­ture on <span class="small-caps">AWS</span>, but it was­n’t su­per com­plex. The gist is:</p><ul>
+<li>All the sta­tic files are hosted with S3′s sta­tic web­site host­ing.</li>
+<li>I used Cloudfront as the <span class="small-caps">CDN</span> for the <span class="small-caps">S3</span> files.</li>
 <li>I have a hosted zone for <code>naitian.holiday</code> in Route53 which points to the
-Cloudfront endpoint (which in turn points to the S3 bucket).</li>
+Cloud­front end­point (which in turn points to the <span class="small-caps">S3</span> bucket).</li>
 <li>Photos were hosted on Google Photos</li>
-</ul><h3>Design</h3><p>Aesthetically, I decided to go for a festive red with a subtle gradient. I chose
-a classy serif typeface and drew this freaking amazing <del>Christmas</del>
-non-denominational holiday tree.</p><h3>Build Process</h3><p>Each card was defined as a yaml file. I wrote a Python script to read these yaml
-files and used markdown to render them into HTML files. At the same time, I
-generated the SES email template data for bulk sending the notification emails.</p><p>I also had a Makefile which would run the rendering script, compile the SCSS
-into CSS, minify CSS and JS, and push everything to S3. There were also Make
-steps which would send a test email and send out the actual emails.</p><h3>Authentication</h3><p>One of the most interesting parts of this whole exercise was figuring out a good
-authentication method. I definitely did not want to make anyone sign in or
-create any accounts (partly also because I wanted this to be a totally static
-site).</p><p>I ended up compromising with a "good-enough" authentication plan, which I had to
-alter a little bit to also keep the pretty URLs. Here's how it ended up working:</p><ol>
-<li>When a card is rendered, it is actually placed in a directory named after its
+</ul><h3>Design</h3><p>Aesthetically, I de­cided to go for a fes­tive red with a sub­tle gra­di­ent. I chose
+a classy serif type­face and drew this freak­ing amaz­ing <del>Christmas</del>
+non-denominational hol­i­day tree.</p><h3>Build Process</h3><p>Each card was de­fined as a yaml file. I wrote a Python script to read these yaml
+files and used mark­down to ren­der them into <span class="small-caps">HTML</span> files. At the same time, I
+generated the <span class="small-caps">SES</span> email tem­plate data for bulk send­ing the no­ti­fi­ca­tion emails.</p><p>I also had a Makefile which would run the ren­der­ing script, com­pile the SCSS
+into <span class="small-caps">CSS</span>, minify <span class="small-caps">CSS</span> and <span class="small-caps">JS</span>, and push every­thing to <span class="small-caps">S3</span>. There were also Make
+steps which would send a test email and send out the ac­tual emails.</p><h3>Authentication</h3><p>One of the most in­ter­est­ing parts of this whole ex­er­cise was fig­ur­ing out a good
+au­then­ti­ca­tion method. I def­i­nitely did not want to make any­one sign in or
+cre­ate any ac­counts (partly also be­cause I wanted this to be a to­tally sta­tic
+site).</p><p>I ended up com­pro­mis­ing with a<span class="push-double"></span> <span class="pull-double">“</span>good-enough” au­then­ti­ca­tion plan, which I had to
+al­ter a lit­tle bit to also keep the pretty URLs. Here’s how it ended up work­ing:</p><ol>
+<li>When a card is ren­dered, it is ac­tu­ally placed in a di­rec­tory named af­ter its
 SHA256 hash.</li>
-<li>This hash is used as an auth token in the link.</li>
-<li>Not only is an HTML file generated with the card's content, another HTML page
-is generated with Javascript for authentication and a hidden input field
-containing a SHA256 hash of the token.</li>
-<li>When a user navigates to the site (e.g. naitian.holidy/nate), they are
-actually navigating to the page with only the auth code.
+<li>This hash is used as an auth to­ken in the link.</li>
+<li>Not only is an <span class="small-caps">HTML</span> file gen­er­ated with the card’s con­tent, an­other <span class="small-caps">HTML</span> page
+is gen­er­ated with Javascript for au­then­ti­ca­tion and a hid­den in­put field
+con­tain­ing a <span class="small-caps">SHA256</span> hash of the to­ken.</li>
+<li>When a user nav­i­gates to the site (e.g. nait­ian.holidy/​nate), they are
+ac­tu­ally nav­i­gat­ing to the page with only the auth code.
 <ul>
-<li>On the client side, the token (if it's present) is hashed and compared
-to the correct token.</li>
-<li>If incorrect, the user is rejected.</li>
+<li>On the client side, the to­ken (if it’s pre­sent) is hashed and com­pared
+to the cor­rect to­ken.</li>
+<li>If in­cor­rect, the user is re­jected.</li>
 </ul>
 </li>
-<li>If correct, there is an XHR request that fetches the actual HTML and displays
+<li>If cor­rect, there is an <span class="small-caps">XHR</span> re­quest that fetches the ac­tual <span class="small-caps">HTML</span> and dis­plays
 it.</li>
-</ol><p>This means the user would have a hard time even realizing that any
-authentication had occurred in the first place.</p><p>To recap, for each card, the path structure looked like this:</p><pre><code class="hljs language-axapta">naitian.holiday/&#x3C;SHA256>/<span class="hljs-keyword">index</span>.html   &#x3C;- <span class="hljs-keyword">this</span> <span class="hljs-keyword">is</span> the HTML <span class="hljs-keyword">for</span> the card
+</ol><p>This means the user would have a hard time even re­al­iz­ing that any
+au­then­ti­ca­tion had oc­curred in the first place.</p><p>To re­cap, for each card, the path struc­ture looked like this:</p><pre><code class="hljs language-axapta">naitian.holiday/&#x3C;SHA256>/<span class="hljs-keyword">index</span>.html   &#x3C;- <span class="hljs-keyword">this</span> <span class="hljs-keyword">is</span> the HTML <span class="hljs-keyword">for</span> the card
 naitian.holiday/nate/<span class="hljs-keyword">index</span>.html       &#x3C;- <span class="hljs-keyword">this</span> <span class="hljs-keyword">is</span> the HTML <span class="hljs-keyword">for</span> authentication
-</code></pre><p>Of course, I also added a <code>robots.txt</code> which disallowed any crawling. This makes
-it pretty difficult to find the (very much public) SHA256 paths of any of the
-cards.</p><p>So, while not airtight, this worked well enough to prevent people from just
-typing in names of other people to see their cards.</p><p>I also stored the tokens in local storage, so after the first visit, the token
-isn't actually required.</p><p>Nifty.</p><h3>Email Notifications</h3><p>Emails were surprisingly straightforward to set up. I used the Simple Email
-Service from Amazon. Initially, I planned to do a lot more CSS for the HTML
-emails, but ultimately decided against it for two reasons: it would have been
-more work to implement and try to test, and I felt like it would feel more
-personal if it was more "raw".</p><p>I had a <code>make</code> rule which would send just test emails to myself and a different
+</code></pre><p>Of course, I also added a <code>robots.txt</code> which dis­al­lowed any crawl­ing. This makes
+it pretty dif­fi­cult to find the (very much pub­lic) <span class="small-caps">SHA256</span> paths of any of the
+cards.</p><p>So, while not air­tight, this worked well enough to pre­vent peo­ple from just
+typ­ing in names of other peo­ple to see their cards.</p><p>I also stored the to­kens in lo­cal stor­age, so af­ter the first visit, the to­ken
+is­n’t ac­tu­ally re­quired.</p><p>Nifty.</p><h3>Email Notifications</h3><p>Emails were sur­pris­ingly straight­for­ward to set up. I used the Simple Email
+Service from Amazon. Initially, I planned to do a lot more <span class="small-caps">CSS</span> for the HTML
+emails, but ul­ti­mately de­cided against it for two rea­sons: it would have been
+more work to im­ple­ment and try to test, and I felt like it would feel more
+per­sonal if it was more<span class="push-double"></span> <span class="pull-double">“</span>raw”.</p><p>I had a <code>make</code> rule which would send just test emails to my­self and a dif­fer­ent
 rule to send out the emails for real.</p></section>
 </article>
 

@@ -27,32 +27,32 @@
             <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="/blog">Blog</a></li>
-                <li><a href="/feed.xml">RSS</a></li>
+                <li><a href="/feed.xml"><span class="small-caps">RSS</span></a></li>
             </ul> 
         </nav>
         
 <article>
     <h1 class="title">Getting Cozy with Jekyll</h1>
-    <section><h2>The Problem</h2><p>I've been having lots of fun with this blog, and Jekyll makes it easy to write
-posts. I love the simplicity involved in creating a post and publishing it.
-However, there were some irritations involved when starting to write a post: I
-had to write the front matter manually every single time. As it turns out, I was
-basically copying and pasting the front matter and changing values every time.
-There must be a better way!</p><p>There isn't an easy fix for this. Since the front matter is specific to every
-post, there's nothing I can specify in the Jekyll configuration. So the question
+    <section><h2>The Problem</h2><p>I’ve been hav­ing lots of fun with this blog, and Jekyll makes it easy to write
+posts. I love the sim­plic­ity in­volved in cre­at­ing a post and pub­lish­ing it.
+How­ever, there were some ir­ri­ta­tions in­volved when start­ing to write a post: I
+had to write the front mat­ter man­u­ally every sin­gle time. As it turns out, I was
+ba­si­cally copy­ing and past­ing the front mat­ter and chang­ing val­ues every time.
+There must be a bet­ter way!</p><p>There is­n’t an easy fix for this. Since the front mat­ter is spe­cific to every
+post, there’s noth­ing I can spec­ify in the Jekyll con­fig­u­ra­tion. So the ques­tion
 was: what do?</p></section>
-<section><h2>The Solution</h2><p>After a little bit of research into preexisting solutions, I decided it would be
-easiest to just write my own little script. I have a special set up, where, in
-addition to just blog posts, I also have art and project posts that I want to
-semi-automate the generation of also.</p><p>I ended up writing a Python script that basically walks me through the front
-matter requirements for each post. The interface looks a little bit like this:</p><pre><code class="hljs language-sql_more">blog > title: Getting Cozy <span class="hljs-keyword">with</span> Jekykll
+<section><h2>The Solution</h2><p>After a lit­tle bit of re­search into pre­ex­ist­ing so­lu­tions, I de­cided it would be
+eas­i­est to just write my own lit­tle script. I have a spe­cial set up, where, in
+ad­di­tion to just blog posts, I also have art and pro­ject posts that I want to
+semi-au­to­mate the gen­er­a­tion of also.</p><p>I ended up writ­ing a Python script that ba­si­cally walks me through the front
+mat­ter re­quire­ments for each post. The in­ter­face looks a lit­tle bit like this:</p><pre><code class="hljs language-sql_more">blog > title: Getting Cozy <span class="hljs-keyword">with</span> Jekykll
 blog > author(Naitian Zhou):
 blog > cover(<span class="hljs-keyword">required</span>): TODO
 blog > <span class="hljs-keyword">desc</span>(A blog post): A <span class="hljs-keyword">quick</span> guide <span class="hljs-keyword">to</span> easliy generating <span class="hljs-keyword">new</span> Jekyll psts <span class="hljs-keyword">with</span> Python <span class="hljs-keyword">and</span> Mustache
 Would you <span class="hljs-keyword">like</span> <span class="hljs-keyword">to</span> <span class="hljs-keyword">add</span> a tag? (y/N)y
 blog > tag > <span class="hljs-keyword">name</span>: Python
-</code></pre><p>This generates a file <code>_drafts/getting-cozy-with-jekyll.md</code> with the following
-content:</p><pre><code class="hljs language-yaml"><span class="hljs-meta">---</span>
+</code></pre><p>This gen­er­ates a file <code>_drafts/getting-cozy-with-jekyll.md</code> with the fol­low­ing
+con­tent:</p><pre><code class="hljs language-yaml"><span class="hljs-meta">---</span>
 <span class="hljs-attr">title:</span> <span class="hljs-string">Getting</span> <span class="hljs-string">Cozy</span> <span class="hljs-string">with</span> <span class="hljs-string">Jekyll</span>
 <span class="hljs-attr">author:</span> <span class="hljs-string">Naitian</span> <span class="hljs-string">Zhou</span>
 <span class="hljs-attr">cover:</span> <span class="hljs-string">/assets/TODO</span>
@@ -60,11 +60,11 @@ content:</p><pre><code class="hljs language-yaml"><span class="hljs-meta">---</s
 <span class="hljs-attr">tags:</span>
     <span class="hljs-bullet">-</span> <span class="hljs-string">Python</span>
 <span class="hljs-meta">---
-</span></code></pre><p>A couple of interesting notes: I implemented very basic default values, which
-allowed me to leave the <code>Author: </code> field blank, and included the ability to add
-lists to the front matter.</p><p>In fact, I even made it so that I could specify more JSON schemas for posts and
-the script would automatically be able to handle those as well. Here's the
-relevant directory structure:</p><pre><code class="hljs language-haml"> -<span class="ruby"> /<span class="hljs-regexp">/other Jekyll files
+</span></code></pre><p>A cou­ple of in­ter­est­ing notes: I im­ple­mented very ba­sic de­fault val­ues, which
+al­lowed me to leave the <code>Author: </code> field blank, and in­cluded the abil­ity to add
+lists to the front mat­ter.</p><p>In fact, I even made it so that I could spec­ify more <span class="small-caps">JSON</span> schemas for posts and
+the script would au­to­mat­i­cally be able to han­dle those as well. Here’s the
+rel­e­vant di­rec­tory struc­ture:</p><pre><code class="hljs language-haml"> -<span class="ruby"> /<span class="hljs-regexp">/other Jekyll files
 </span></span> -<span class="ruby"><span class="hljs-regexp"> _templates/</span>
 </span>   -<span class="ruby"> schemas.json
 </span>   -<span class="ruby"> art.mustache
@@ -72,7 +72,7 @@ relevant directory structure:</p><pre><code class="hljs language-haml"> -<span c
 </span>   -<span class="ruby"> project.mustache
 </span> -<span class="ruby"> _utils/
 </span>   -<span class="ruby"> help.py
-</span></code></pre><p>I used the mustache templating language for easy templating. The art.mustache
+</span></code></pre><p>I used the mus­tache tem­plat­ing lan­guage for easy tem­plat­ing. The art.mus­tache
 file looks like this:</p><pre><code class="hljs language-yaml"><span class="hljs-meta">---</span>
 <span class="hljs-attr">title:</span> {{<span class="hljs-string">title</span>}}
 <span class="hljs-attr">src:</span> {{<span class="hljs-string">img</span>}}
@@ -84,11 +84,11 @@ file looks like this:</p><pre><code class="hljs language-yaml"><span class="hljs
 {{<span class="hljs-string">/other</span>}}
 <span class="hljs-attr">description:</span> {{<span class="hljs-string">desc</span>}}
 <span class="hljs-meta">---
-</span></code></pre><p>This method gives me a lot of flexibility to flesh out the templates in the
-future. I could even add content into the body text, in addition to the front
-matter.</p><p>I used Python and the <code>pystache</code> library to take the input and render out the
-correct files.</p><p>To take input, I wrote a recursive function that looks at the schema specified
-by the <code>schemas.json</code> file.</p><p>Here is the entirety of the schemas file:</p><pre><code class="hljs language-json">{
+</span></code></pre><p>This method gives me a lot of flex­i­bil­ity to flesh out the tem­plates in the
+fu­ture. I could even add con­tent into the body text, in ad­di­tion to the front
+mat­ter.</p><p>I used Python and the <code>pystache</code> li­brary to take the in­put and ren­der out the
+cor­rect files.</p><p>To take in­put, I wrote a re­cur­sive func­tion that looks at the schema spec­i­fied
+by the <code>schemas.json</code> file.</p><p>Here is the en­tirety of the schemas file:</p><pre><code class="hljs language-json">{
     <span class="hljs-attr">"blog"</span>: {
         <span class="hljs-attr">"title"</span>: <span class="hljs-string">"required"</span>,
         <span class="hljs-attr">"author"</span>: <span class="hljs-string">"Naitian Zhou"</span>,
@@ -115,7 +115,7 @@ by the <code>schemas.json</code> file.</p><p>Here is the entirety of the schemas
         ]
     }    
 }
-</code></pre><p>The function looks like this:</p><pre><code class="hljs language-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">prompt</span>(<span class="hljs-params">title, obj</span>):</span>
+</code></pre><p>The func­tion looks like this:</p><pre><code class="hljs language-python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">prompt</span>(<span class="hljs-params">title, obj</span>):</span>
     <span class="hljs-string">"""Prompt for input
 
     :obj: Empty Object
@@ -136,12 +136,12 @@ by the <code>schemas.json</code> file.</p><p>Here is the entirety of the schemas
             <span class="hljs-keyword">if</span> val != <span class="hljs-string">''</span>:
                 obj[key] = val
     <span class="hljs-keyword">return</span> obj
-</code></pre><p>It prompts you for the requisite values (and keeps the default if you don't
-enter anything), and recursively goes into lists if lists are present. It will
-then return an <code>OrderedDict</code> that we can feed into <code>pystache.render()</code>.</p><p>Now whenever I want to write a new blog post, I can just call</p><pre><code class="hljs language-vim">$ _utils/<span class="hljs-keyword">help</span>.<span class="hljs-keyword">py</span> <span class="hljs-keyword">new</span> blog
-</code></pre><p>and it will hold my hand as we navigate through the front matter options.</p><p>You can find all of the files on the <a href="https://github.com/naitian/PV2">Github for my blog</a>.</p><p>More specifically, here are the <a href="https://github.com/naitian/PV2/blob/master/_util/help.py">Python
+</code></pre><p>It prompts you for the req­ui­site val­ues (and keeps the de­fault if you don’t
+en­ter any­thing), and re­cur­sively goes into lists if lists are pre­sent. It will
+then re­turn an <code>OrderedDict</code> that we can feed into <code>pystache.render()</code>.</p><p>Now when­ever I want to write a new blog post, I can just call</p><pre><code class="hljs language-vim">$ _utils/<span class="hljs-keyword">help</span>.<span class="hljs-keyword">py</span> <span class="hljs-keyword">new</span> blog
+</code></pre><p>and it will hold my hand as we nav­i­gate through the front mat­ter op­tions.</p><p>You can find all of the files on the <a href="https://github.com/naitian/PV2">Github for my blog</a>.</p><p>More specif­i­cally, here are the <a href="https://github.com/naitian/PV2/blob/master/_util/help.py">Python
 script</a> and the
-<a href="https://github.com/naitian/PV2/tree/master/_templates">template directory</a></p></section>
+<a href="https://github.com/naitian/PV2/tree/master/_templates">tem­plate di­rec­tory</a></p></section>
 </article>
 
         </div>

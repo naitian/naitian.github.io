@@ -27,21 +27,21 @@
             <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="/blog">Blog</a></li>
-                <li><a href="/feed.xml">RSS</a></li>
+                <li><a href="/feed.xml"><span class="small-caps">RSS</span></a></li>
             </ul> 
         </nav>
         
 <article>
-    <h1 class="title">Understanding D3</h1>
+    <h1 class="title">Understanding <span class="small-caps">D3</span></h1>
     <blockquote>
-<p>This is a first draft. I will likely revise (multiple times) in the future
-for clarity. But hopefully, even in its current state, you might find this
-useful.</p>
+<p>This is a first draft. I will likely re­vise (multiple times) in the fu­ture
+for clar­ity. But hope­fully, even in its cur­rent state, you might find this
+use­ful.</p>
 </blockquote>
 <section><h2>Table of Contents</h2><ul>
-<li><a href="#the-strange-case-of-d3">The strange case of D3</a></li>
-<li><a href="#the-big-idea-and-why-its-so-hard">The big idea (and why it's so hard)</a></li>
-<li><a href="#lets-start-with-just-a-line">Let's start with just a line</a>
+<li><a href="#the-strange-case-of-d3">The strange case of <span class="small-caps">D3</span></a></li>
+<li><a href="#the-big-idea-and-why-its-so-hard">The big idea (and why it’s so hard)</a></li>
+<li><a href="#lets-start-with-just-a-line">Let’s start with just a line</a>
 <ul>
 <li><a href="#set-up">Set up</a></li>
 <li><a href="#the-code">The Code</a>
@@ -55,29 +55,29 @@ useful.</p>
 </li>
 <li><a href="#why-this-way">Why this way?</a></li>
 </ul></section>
-<section><h2>The strange case of D3</h2><p>Dr. Jekyll: D3 is famous for being an incredibly versatile visualization
-library.</p><p>Mr. Hyde: D3 is <em>infamous</em> for having a steep learning curve and being difficult
-to understand past copy and pasting examples.</p><p>I have experienced the dark side of D3, but recently, I feel as if I have had
-minor breakthrough, so hopefully I can in turn provide you with some sort of
-lightbulb moment.</p><p>But just as a disclaimer: in no way do I profess to be an expert (or anywhere
-close). I've still a lot to learn. I just think something clicked for me.</p></section>
-<section><h2>The big idea (and why it's so hard)</h2><p>Having gained some understanding, I now know this is the mantra you must repeat
-to yourself.</p><blockquote>
-<p>D3 gives you <strong>functions</strong> to work with <strong>data</strong> bound to <strong>elements</strong>.</p>
-</blockquote><p>Does that sound kind of familiar? It probably should. Here's the first sentence
-on the D3 website.</p><blockquote>
-<p>D3.js is a JavaScript library for manipulating documents based on data</p>
-</blockquote><p>and later on...</p><blockquote>
-<p>D3 allows you to bind arbitrary data to a Document Object Model (DOM), and
-then apply data-driven transformations to the document</p>
-</blockquote><p>That leads me to believe D3 is difficult to learn because it relies on a very
-simple and powerful concept -- too simple to warrant understanding when just
-starting out and too powerful to appreciate without building and seeing lots of
-examples.</p></section>
-<section><h2>Let's start with just a line</h2><p>We will begin with the three basic parts to working with D3. We will have an
-element in the DOM (element). We will have some data, with which we'll draw a
-line (data). And we'll use D3 to put those things together (functions).</p><p>D3 has a lot of conventions. These are useful to learn as a stepping stone to
-learning the concepts, so I will try to use a few of them here.</p><p>This is what the result looks like.</p><script src="https://d3js.org/d3.v5.min.js"></script><style>
+<section><h2>The strange case of <span class="small-caps">D3</span></h2><p>Dr. Jekyll: <span class="small-caps">D3</span> is fa­mous for be­ing an in­cred­i­bly ver­sa­tile vi­su­al­iza­tion
+li­brary.</p><p>Mr. Hyde: <span class="small-caps">D3</span> is <em>in­fa­mous</em> for hav­ing a steep learn­ing curve and be­ing dif­fi­cult
+to un­der­stand past copy and past­ing ex­am­ples.</p><p>I have ex­pe­ri­enced the dark side of <span class="small-caps">D3</span>, but re­cently, I feel as if I have had
+mi­nor break­through, so hope­fully I can in turn pro­vide you with some sort of
+light­bulb mo­ment.</p><p>But just as a dis­claimer: in no way do I pro­fess to be an ex­pert (or any­where
+close). I’ve still a lot to learn. I just think some­thing clicked for me.</p></section>
+<section><h2>The big idea (and why it’s so hard)</h2><p>Having gained some un­der­stand­ing, I now know this is the mantra you must re­peat
+to your­self.</p><blockquote>
+<p><span class="small-caps">D3</span> gives you <strong>func­tions</strong> to work with <strong>data</strong> bound to <strong>el­e­ments</strong>.</p>
+</blockquote><p>Does that sound kind of fa­mil­iar? It prob­a­bly should. Here’s the first sen­tence
+on the <span class="small-caps">D3</span> web­site.</p><blockquote>
+<p>D3.js is a JavaScript li­brary for ma­nip­u­lat­ing doc­u­ments based on data</p>
+</blockquote><p>and later on&hellip;</p><blockquote>
+<p><span class="small-caps">D3</span> al­lows you to bind ar­bi­trary data to a Document Object Model (<span class="small-caps">DOM</span>), and
+then ap­ply data-dri­ven trans­for­ma­tions to the doc­u­ment</p>
+</blockquote><p>That leads me to be­lieve <span class="small-caps">D3</span> is dif­fi­cult to learn be­cause it re­lies on a very
+sim­ple and pow­er­ful con­cept&thinsp;&mdash;&thinsp;too sim­ple to war­rant un­der­stand­ing when just
+start­ing out and too pow­er­ful to ap­pre­ci­ate with­out build­ing and see­ing lots of
+ex­am­ples.</p></section>
+<section><h2>Let’s start with just a line</h2><p>We will be­gin with the three ba­sic parts to work­ing with <span class="small-caps">D3</span>. We will have an
+el­e­ment in the <span class="small-caps">DOM</span> (element). We will have some data, with which we’ll draw a
+line (data). And we’ll use <span class="small-caps">D3</span> to put those things to­gether (functions).</p><p><span class="small-caps">D3</span> has a lot of con­ven­tions. These are use­ful to learn as a step­ping stone to
+learn­ing the con­cepts, so I will try to use a few of them here.</p><p>This is what the re­sult looks like.</p><script src="https://d3js.org/d3.v5.min.js"></script><style>
     svg {
         position: relative;
         left: 50%;
@@ -134,20 +134,20 @@ window.onload = draw;
 <h2 class="figure__title">Figure: Just a Line Plot</h2>
 <svg>
 </svg>
-</figure><h3>Set up</h3><p>Let's start with the easiest part to set up: the DOM. This is all the HTML I
+</figure><h3>Set up</h3><p>Let’s start with the eas­i­est part to set up: the <span class="small-caps">DOM</span>. This is all the <span class="small-caps">HTML</span> I
 have:</p><pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">figure</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"example"</span>></span>
 <span class="hljs-tag">&#x3C;<span class="hljs-name">h2</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"figure__title"</span>></span>Figure: Just a Line Plot<span class="hljs-tag">&#x3C;/<span class="hljs-name">h2</span>></span>
 <span class="hljs-tag">&#x3C;<span class="hljs-name">svg</span>></span>
 <span class="hljs-tag">&#x3C;/<span class="hljs-name">svg</span>></span>
 <span class="hljs-tag">&#x3C;/<span class="hljs-name">figure</span>></span>
-</code></pre><p>We have a simple dataset (5 points to form a line).</p><pre><code class="hljs language-js"><span class="hljs-keyword">const</span> X = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>];
+</code></pre><p>We have a sim­ple dataset (5 points to form a line).</p><pre><code class="hljs language-js"><span class="hljs-keyword">const</span> X = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>];
 <span class="hljs-keyword">const</span> Y = [<span class="hljs-number">3</span>, <span class="hljs-number">5</span>, <span class="hljs-number">1</span>, <span class="hljs-number">6</span>, <span class="hljs-number">9</span>];
-</code></pre><p>Again, nothing special.</p><h3>The Code</h3><p>This is the interesting part, but don't be intimidated. In fact, this chart is
-made with only 16 lines of actual code.</p><p>First, let's define some variables we want to keep track of:</p><pre><code class="hljs language-js"><span class="hljs-keyword">let</span> width = <span class="hljs-number">600</span>;
+</code></pre><p>Again, noth­ing spe­cial.</p><h3>The Code</h3><p>This is the in­ter­est­ing part, but don’t be in­tim­i­dated. In fact, this chart is
+made with only 16 lines of ac­tual code.</p><p>First, let’s de­fine some vari­ables we want to keep track of:</p><pre><code class="hljs language-js"><span class="hljs-keyword">let</span> width = <span class="hljs-number">600</span>;
 <span class="hljs-keyword">let</span> height = <span class="hljs-number">300</span>;
 <span class="hljs-comment">// this is the margin convention</span>
 <span class="hljs-keyword">let</span> margin = {<span class="hljs-attr">top</span>: <span class="hljs-number">5</span>, <span class="hljs-attr">right</span>: <span class="hljs-number">0</span>, <span class="hljs-attr">bottom</span>: <span class="hljs-number">30</span>, <span class="hljs-attr">left</span>: <span class="hljs-number">30</span>};
-</code></pre><p>Remember our mantra: data, function, elements. Again, let's start with elements.</p><h4>Elements</h4><pre><code class="hljs language-js"><span class="hljs-comment">// Create elements</span>
+</code></pre><p>Remember our mantra: data, func­tion, el­e­ments. Again, let’s start with el­e­ments.</p><h4>Elements</h4><pre><code class="hljs language-js"><span class="hljs-comment">// Create elements</span>
 <span class="hljs-comment">// select SVG</span>
 <span class="hljs-keyword">let</span> svg = d3.select(<span class="hljs-string">"figure.example > svg"</span>)
     .attr(<span class="hljs-string">"width"</span>, width)
@@ -164,12 +164,12 @@ made with only 16 lines of actual code.</p><p>First, let's define some variables
     .attr(<span class="hljs-string">"transform"</span>, <span class="hljs-string">`translate(0, <span class="hljs-subst">${height - margin.top - margin.bottom}</span>)`</span>);
 <span class="hljs-keyword">let</span> chart__yaxis = chart.append(<span class="hljs-string">"g"</span>)
     .attr(<span class="hljs-string">"class"</span>, <span class="hljs-string">"g__yaxis"</span>)
-</code></pre><p>I won't go too far into the details here, but the basic idea is we create all of
-our chart elements under a single "chart" group. This has to do with the
-convention of defining a size for the SVG, defining margins, and adjusting the
-size of your "canvas" accordingly.</p><p>I want to stress that this <em>sets up</em> our chart, but we've yet to actually draw
-anything. We have added the <strong>elements</strong>, but we haven't set up any functions or
-bound any data. So let's do some of that now.</p><h4>Functions</h4><pre><code class="hljs language-js"><span class="hljs-comment">// Create functions</span>
+</code></pre><p>I won’t go too far into the de­tails here, but the ba­sic idea is we cre­ate all of
+our chart el­e­ments un­der a sin­gle<span class="push-double"></span> <span class="pull-double">“</span>chart” group. This has to do with the
+con­ven­tion of defin­ing a size for the <span class="small-caps">SVG</span>, defin­ing mar­gins, and ad­just­ing the
+size of your<span class="push-double"></span> <span class="pull-double">“</span>canvas” ac­cord­ingly.</p><p>I want to stress that this <em>sets up</em> our chart, but we’ve yet to ac­tu­ally draw
+any­thing. We have added the <strong>el­e­ments</strong>, but we haven’t set up any func­tions or
+bound any data. So let’s do some of that now.</p><h4>Functions</h4><pre><code class="hljs language-js"><span class="hljs-comment">// Create functions</span>
 <span class="hljs-keyword">let</span> xScale = d3.scaleLinear()
                 .domain(d3.extent(data.map(<span class="hljs-function"><span class="hljs-params">d</span> =></span> d[<span class="hljs-number">0</span>])))
                 .range([<span class="hljs-number">0</span>, width - margin.left - margin.right]);
@@ -179,49 +179,49 @@ bound any data. So let's do some of that now.</p><h4>Functions</h4><pre><code cl
 <span class="hljs-keyword">let</span> line = d3.line().x(<span class="hljs-function"><span class="hljs-params">d</span> =></span> xScale(d[<span class="hljs-number">0</span>])).y(<span class="hljs-function"><span class="hljs-params">d</span> =></span> yScale(d[<span class="hljs-number">1</span>]));
 <span class="hljs-keyword">let</span> xAxis = d3.axisBottom().scale(xScale);
 <span class="hljs-keyword">let</span> yAxis = d3.axisLeft().scale(yScale);
-</code></pre><p>Here, we set up our scales, axes, as well as the line generator. This doesn't
-draw anything either, because we've yet to put the functions and elements
-together. Luckily for us, that step is pretty easy.</p><h4>Data</h4><pre><code class="hljs language-js"><span class="hljs-comment">// Bind data and call functions</span>
+</code></pre><p>Here, we set up our scales, axes, as well as the line gen­er­a­tor. This does­n’t
+draw any­thing ei­ther, be­cause we’ve yet to put the func­tions and el­e­ments
+to­gether. Luckily for us, that step is pretty easy.</p><h4>Data</h4><pre><code class="hljs language-js"><span class="hljs-comment">// Bind data and call functions</span>
 chart__line.datum(data)
     .attr(<span class="hljs-string">"d"</span>, line);
 
 chart__xaxis.call(xAxis);
 chart__yaxis.call(yAxis);
-</code></pre><p>I want to focus on two things here. First, notice how we now bind our data to
-the <code>chart__line</code> element. We use <code>datum</code> because we are drawing one line, so
-we're binding this one piece of data (singular: datum). Now, when we set the <code>d</code>
-attribute, we can pass in a function that takes the datum (our array of
-coordinates) as input and returns the line path as output.</p><p>Second, notice how we're drawing the axes. We set up the <code>xAxis</code> and <code>yAxis</code>
-functions earlier, and the <code>.call</code> is essentially passing our selection as input
-to the function. It's equivalent to <code>xAxis(chart__xaxis)</code>, for example, so don't
-let the syntax scare you.</p><p>Using <code>.call</code> is convenient for chaining functions, and this pattern is
-recommended for creating reusable charts. The idea is you can have a selection
-of <code>svg</code>s with bound data, call your chart on that selection, and draw charts
-using the bound data for each element in your selection.</p></section>
-<section><h2>Why this way?</h2><p>It's possible to create D3 graphics without following this pattern. I'd bet most
-people (myself included) did not start creating graphics with this pattern. So
-why take the extra effort to learn and implement these ideas?</p><p>There are a couple of reasons which go hand-in-hand.</p><ol>
-<li>This is the way D3 was designed to be used.<label for="1" class="margin-toggle sidenote-number"></label><input type="checkbox" id="1" class="margin-toggle"><span class="sidenote">I will qualify this statement by saying that, since I didn't design D3, technically I don't know if this is true. That said, having read a lot of Mike Bostock's (and others') writing on best practices for D3, this seems to be the "right way"</span></li>
-<li>Because of this, when you implement things this way, things are more likely
-to "just work".</li>
-<li>Also because of this, debugging becomes easier because you're not trying to
-resolve any conflicts between your mental model and the model D3 adopts.</li>
-</ol><p>I'll provide an example of how you might be tempted to do things, and how those
-end up causing headaches later on. The tl;dr is that problems arise when you
-don't separating elements, data, and functions effectively.</p><p>In the past, I used to do this a lot:</p><pre><code class="hljs language-js"><span class="hljs-comment">// draw axes</span>
+</code></pre><p>I want to fo­cus on two things here. First, no­tice how we now bind our data to
+the <code>chart__line</code> el­e­ment. We use <code>datum</code> be­cause we are draw­ing one line, so
+we’re bind­ing this one piece of data (singular: da­tum). Now, when we set the <code>d</code>
+attribute, we can pass in a func­tion that takes the da­tum (our ar­ray of
+co­or­di­nates) as in­put and re­turns the line path as out­put.</p><p>Second, no­tice how we’re draw­ing the axes. We set up the <code>xAxis</code> and <code>yAxis</code>
+functions ear­lier, and the <code>.call</code> is es­sen­tially pass­ing our se­lec­tion as in­put
+to the func­tion. It’s equiv­a­lent to <code>xAxis(chart__xaxis)</code>, for ex­am­ple, so don’t
+let the syn­tax scare you.</p><p>Using <code>.call</code> is con­ve­nient for chain­ing func­tions, and this pat­tern is
+rec­om­mended for cre­at­ing reusable charts. The idea is you can have a se­lec­tion
+of <code>svg</code>s with bound data, call your chart on that se­lec­tion, and draw charts
+us­ing the bound data for each el­e­ment in your se­lec­tion.</p></section>
+<section><h2>Why this way?</h2><p>It’s pos­si­ble to cre­ate <span class="small-caps">D3</span> graph­ics with­out fol­low­ing this pat­tern. I’d bet most
+peo­ple (myself in­cluded) did not start cre­at­ing graph­ics with this pat­tern. So
+why take the ex­tra ef­fort to learn and im­ple­ment these ideas?</p><p>There are a cou­ple of rea­sons which go hand-in-hand.</p><ol>
+<li>This is the way <span class="small-caps">D3</span> was de­signed to be used.<label for="1" class="margin-toggle sidenote-number"></label><input type="checkbox" id="1" class="margin-toggle"><span class="sidenote">I will qual­ify this state­ment by say­ing that, since I did­n’t de­sign <span class="small-caps">D3</span>, tech­ni­cally I don’t know if this is true. That said, hav­ing read a lot of Mike Bostock’s (and oth­ers’) writ­ing on best prac­tices for <span class="small-caps">D3</span>, this seems to be the<span class="push-double"></span> <span class="pull-double">“</span>right way”</span></li>
+<li>Because of this, when you im­ple­ment things this way, things are more likely
+to<span class="push-double"></span> <span class="pull-double">“</span>just work”.</li>
+<li>Also be­cause of this, de­bug­ging be­comes eas­ier be­cause you’re not try­ing to
+re­solve any con­flicts be­tween your men­tal model and the model <span class="small-caps">D3</span> adopts.</li>
+</ol><p>I’ll pro­vide an ex­am­ple of how you might be tempted to do things, and how those
+end up caus­ing headaches later on. The tl;dr is that prob­lems arise when you
+don’t sep­a­rat­ing el­e­ments, data, and func­tions ef­fec­tively.</p><p>In the past, I used to do this a lot:</p><pre><code class="hljs language-js"><span class="hljs-comment">// draw axes</span>
 g.append(<span class="hljs-string">"path"</span>).datum(data).attr(<span class="hljs-string">"d"</span>, line)
 g.append(<span class="hljs-string">"g"</span>).call(xAxis)
 g.append(<span class="hljs-string">"g"</span>).call(yAxis)
-</code></pre><p><strong>Why is this bad?</strong> We don't save our selections, and you can think of this as
-treating the <code>path</code> element as bound to this specific <code>datum</code>.</p><p><strong>What does that mean?</strong> If we want to change our data, we will update <code>data</code>
-and run that code again, but since we don't keep a pointer to the <code>path</code>
-element, we end up just appending another path. Instead of redrawing the line,
-we draw a new line. Additionally, if we wanted our graphic to be responsive
-(that is, resize when the browser window resizes), we need to update and redraw
-our axes. That means we should also keep pointer to the axes elements.</p><p><strong>Moral of the story?</strong> Set up your elements once, then use D3 functions to bind
-data and draw many times. Since you're not creating a new element every update,
-D3 can keep track of the current bound data and update accordingly. This also
-lets you use D3 transitions more easily.</p></section>
+</code></pre><p><strong>Why is this bad?</strong> We don’t save our se­lec­tions, and you can think of this as
+treat­ing the <code>path</code> el­e­ment as bound to this spe­cific <code>datum</code>.</p><p><strong>What does that mean?</strong> If we want to change our data, we will up­date <code>data</code>
+and run that code again, but since we don’t keep a pointer to the <code>path</code>
+element, we end up just ap­pend­ing an­other path. Instead of re­draw­ing the line,
+we draw a new line. Additionally, if we wanted our graphic to be re­spon­sive
+(that is, re­size when the browser win­dow re­sizes), we need to up­date and re­draw
+our axes. That means we should also keep pointer to the axes el­e­ments.</p><p><strong>Moral of the story?</strong> Set up your el­e­ments once, then use <span class="small-caps">D3</span> func­tions to bind
+data and draw many times. Since you’re not cre­at­ing a new el­e­ment every up­date,
+D3 can keep track of the cur­rent bound data and up­date ac­cord­ingly. This also
+lets you use <span class="small-caps">D3</span> tran­si­tions more eas­ily.</p></section>
 </article>
 
         </div>

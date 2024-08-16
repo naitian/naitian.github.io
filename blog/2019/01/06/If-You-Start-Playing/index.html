@@ -27,28 +27,28 @@
             <ul>
                 <li><a href="/">Home</a></li>
                 <li><a href="/blog">Blog</a></li>
-                <li><a href="/feed.xml">RSS</a></li>
+                <li><a href="/feed.xml"><span class="small-caps">RSS</span></a></li>
             </ul> 
         </nav>
         
 <article>
-    <h1 class="title">If You Start Playing...</h1>
-    <section><h2>naitian.holiday</h2><p>I discovered early December 2018 that there existed <code>.christmas</code> and <code>.holiday</code>
-TLDs. Naturally, I had to purchase one, so I sprung for the non-denominational
-(and, more importantly, cheaper) <a href="https://naitian.holiday">naitian.holiday</a>
-domain.</p><p>The next question, of course, was what I should do with it. I ended up using it
-for two projects, so I definitely got my money's worth. One of the projects was
-<a href="https://naitian.holiday/iysp/?preset=umich">if you start playing</a>.</p></section>
-<section><h2>if you start playing...</h2><blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">If you start playing YouTube Rewind 2018 at 11:53 and 2 seconds on New Year's Eve, Will Smith will say "uhhhh that's hot" at exactly midnight.</p>— Fab NZ (@fab_nz) <a href="https://twitter.com/fab_nz/status/1079555364759031808?ref_src=twsrc%5Etfw">December 31, 2018</a></blockquote><p>Inspired by this meme format, I decided to make a New Year's countdown that
-would automatically start playing these videos at the correct time.</p><p>Here are the specs for the project:</p><h3>specs</h3><ol>
-<li><strong>client side</strong>: it really doesn't need a backend, and I wanted to host on
+    <h1 class="title">If You Start Playing&hellip;</h1>
+    <section><h2>nait­ian.hol­i­day</h2><p>I dis­cov­ered early December 2018 that there ex­isted <code>.christmas</code> and <code>.holiday</code>
+TLDs. Naturally, I had to pur­chase one, so I sprung for the non-de­nom­i­na­tional
+(and, more im­por­tantly, cheaper) <a href="https://naitian.holiday">nait­ian.hol­i­day</a>
+domain.</p><p>The next ques­tion, of course, was what I should do with it. I ended up us­ing it
+for two pro­jects, so I def­i­nitely got my mon­ey’s worth. One of the pro­jects was
+<a href="https://naitian.holiday/iysp/?preset=umich">if you start play­ing</a>.</p></section>
+<section><h2>if you start play­ing&hellip;</h2><blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">If you start play­ing YouTube Rewind 2018 at 11:53 and 2 sec­onds on New Year’s Eve, Will Smith will say<span class="push-double"></span> <span class="pull-double">“</span>uhhhh that’s hot” at ex­actly mid­night.</p>— Fab <span class="small-caps">NZ</span> (@fab_nz) <a href="https://twitter.com/fab_nz/status/1079555364759031808?ref_src=twsrc%5Etfw">December 31, 2018</a></blockquote><p>Inspired by this meme for­mat, I de­cided to make a New Year’s count­down that
+would au­to­mat­i­cally start play­ing these videos at the cor­rect time.</p><p>Here are the specs for the pro­ject:</p><h3>specs</h3><ol>
+<li><strong>client side</strong>: it re­ally does­n’t need a back­end, and I wanted to host on
 S3, serve through CloudFront, etc.</li>
-<li><strong>customizable</strong>: I want to be able to share links to custom videos /
+<li><strong>cus­tomiz­able</strong>: I want to be able to share links to cus­tom videos /
 timestamps.</li>
-<li><strong>dark theme</strong>: for the nighttime countdown, of course.</li>
-</ol><h3>tech</h3><p>Building out the application was actually pretty straightforward, thanks to the
-Youtube iframe API.</p><p>To make it customizable and all on the client side, I used <code>window.location</code> to
-get URL parameters.</p><pre><code class="hljs language-js"><span class="hljs-keyword">let</span> url = <span class="hljs-keyword">new</span> URL(<span class="hljs-built_in">window</span>.location.href);
+<li><strong>dark theme</strong>: for the night­time count­down, of course.</li>
+</ol><h3>tech</h3><p>Building out the ap­pli­ca­tion was ac­tu­ally pretty straight­for­ward, thanks to the
+Youtube iframe <span class="small-caps">API</span>.</p><p>To make it cus­tomiz­able and all on the client side, I used <code>window.location</code> to
+get <span class="small-caps">URL</span> pa­ra­me­ters.</p><pre><code class="hljs language-js"><span class="hljs-keyword">let</span> url = <span class="hljs-keyword">new</span> URL(<span class="hljs-built_in">window</span>.location.href);
 <span class="hljs-keyword">if</span> (url.searchParams.get(<span class="hljs-string">'custom'</span>)) {
    <span class="hljs-keyword">const</span> id = url.searchParams.get(<span class="hljs-string">'id'</span>);
    <span class="hljs-keyword">const</span> timestamp = url.searchParams.get(<span class="hljs-string">'timestamp'</span>);
@@ -60,7 +60,7 @@ get URL parameters.</p><pre><code class="hljs language-js"><span class="hljs-key
     <span class="hljs-comment">// Get from list of presets</span>
 }
 </code></pre><p>You can check it out at
-<a href="https://naitian.holiday/iysp/?preset=umich">naitian.holiday/iysp/?preset=umich</a>.</p><p>The <a href="https://github.com/naitian/startplaying">Github Repo</a>.</p></section>
+<a href="https://naitian.holiday/iysp/?preset=umich">nait­ian.hol­i­day/​iysp/?​pre­set=umich</a>.</p><p>The <a href="https://github.com/naitian/startplaying">Github Repo</a>.</p></section>
 </article>
 
         </div>
