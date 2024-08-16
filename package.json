@@ -37,5 +37,8 @@
     "remark-toc": "^7.2.0",
     "remark-tufte": "https://github.com/naitian/remark-tufte",
     "unified": "^10.0.0"
+  },
+  "dependencies": {
+    "eleventy-plugin-typeset-again": "arcades-studio/eleventy-plugin-typeset-again"
   }
 }

@@ -16,6 +16,9 @@ const highlight = require("rehype-highlight");
 const mathjax = require("rehype-mathjax");
 const directive = require("remark-directive");
 const tufte = require("remark-tufte");
+const typesetPlugin = require('eleventy-plugin-typeset-again');
+const typeset = require('typeset');
+
 
 
 const listify = function (arr) {
@@ -69,7 +72,7 @@ module.exports = function (eleventyConfig) {
     .use(highlight)
     .use(mathjax)
     .use(raw)
-    .use(stringify);
+    .use(stringify)
   function markdown() {
     return {
       set: () => { },
@@ -80,6 +83,7 @@ module.exports = function (eleventyConfig) {
     };
   }
   eleventyConfig.setLibrary("md", markdown());
+  eleventyConfig.addPlugin(typesetPlugin({disable: ["ligatures"]}));
 
   // helmet
   eleventyConfig.addPlugin(eleventyHelmetPlugin);
@@ -125,7 +129,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addShortcode("blog", function (blog) {
     return outdent`
     <a href="${blog.url}" class="entry"><div>
-    <span class="entry__title">${blog.data.title}</span> <br>
+    <span class="entry__title">${blog.data.tags.includes("draft") ? "!!!DRAFT: " : ""}${blog.data.title}</span> <br>
     <span class="entry__venue">${blog.data.description}</span> <br>
     <span class="entry__description">Published ${date(blog.date)}</span>
     </div></a>

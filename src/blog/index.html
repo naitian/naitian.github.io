@@ -20,7 +20,13 @@ tags: []
 
 <p>I write these things sometimes, and you can read them.</p>
 
+
 <div class="posts">
+{% if process.env.ELEVENTY_RUN_MODE != "build" %}
+{% for post in collections.draft reversed %}
+{% blog post %}
+{% endfor %}
+{% endif %}
 {% for post in collections.post reversed %}
 {% blog post %}
 {% endfor %}
