@@ -38,11 +38,12 @@ document.querySelector(".verbosity").addEventListener("change", (e) => {
 I'm a PhD student at the UC Berkeley School of Information, where I'm advised
 by David Bamman and supported by the NSF graduate research fellowship.
 
-My research involves applying large-scale data analysis and deep learning
-methods to studying culture, often through a variationist sociolinguistic
-analytic framework. This spans the fields of NLP, computational social science,
-and cultural analytics. I also care a lot about the news, data journalism, data
-visualization and crossword puzzles.
+My research centers on developing computational methods to understand meaning
+embedded in style. This draws on a variationist sociolinguistic / cultural
+anthropological perspective of culture, and spans the fields of NLP,
+computational social science, and cultural analytics. Methodologically, I am
+interested in multimodal approaches to language, vision and speech. I also care
+a lot about the news, data journalism, data visualization and crossword puzzles.
 
 If you are interested in doing research or grad school, I am always happy to
 chat about my experiences. If you are a Berkeley undergrad interested in doing
@@ -61,7 +62,11 @@ David Bamman.
 
 ## Updates
 
-- Apr. 2024: Our paper on linguistic variation in memes has been accepted! (whoo!)
+- Dec. 2024: I will be traveling to CHR in Aarhus -- excited to meet folks there (hej!)
+- Nov. 2024: I passed my prelim exams, and also turned 25! (old!)
+- Nov. 2024: Our paper on [measuring diversity in Hollywood](https://www.pnas.org/doi/10.1073/pnas.2409770121) has been published to PNAS (science!)
+- Sep. 2024: My paper [Once More, With Feeling](https://naitian.org/once-more-with-feeling) has been accepted to CHR 2024! (yippee!)
+- Apr. 2024: Our paper on linguistic variation in memes has been accepted to NAACL 2024! (whoo!)
 - Oct. 2023: I presented at NWAV51 about how zero-shot text-to-speech models erase phonological variation (schwa!)
 - Mar. 2023: The NSF awarded me the Graduate Research Fellowship (wild!)
 - Aug. 2022: I started my PhD at UC Berkeley (omg!)
